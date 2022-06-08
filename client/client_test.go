@@ -19,6 +19,7 @@ const (
 	TestAccount3             = "0x31a6EE302c1E7602685c86EF7a3069210Bc26670"
 	TestComplianceAddress    = "0xe868feADdAA8965b6e64BDD50a14cD41e3D5245D"
 	TestSecurityTokenAddress = "0xA7E7717817776181f64b46f9e4EFC75e181f9Dce"
+	TestFactoryAddress       = "0xEEC5a0C20EC8b587E11604597d7a51779e3a71F2"
 )
 
 func TestShutdown(t *testing.T) {
@@ -132,4 +133,40 @@ func TestComplianceService(t *testing.T) {
 	hasRes, err := c.HasRole(hasReq)
 	require.NoError(t, err)
 	require.True(t, hasRes.GetHas())
+}
+
+func TestFactory(t *testing.T) {
+	var (
+		c, _     = NewBlockchainClient(TestEndpoint, WithTimeout(3))
+		grantees = []string{
+			"0xBfCD2b748782b2e958C06Fecfc6D7093599ed8c8",
+			"0xC9911Ccf8FacBA9D7D8f1C59FE477233b6Bb9fE4",
+		}
+		req = data.CreateContractsRequest{
+			PrivateKey:      TestPrivKey,
+			ContractAddress: TestFactoryAddress,
+			Name:            "Test Token Name",
+			Symbol:          "TKN",
+			InitialSupply:   "100",
+			Grantees:        grantees,
+		}
+	)
+	ln, err := c.Start()
+	defer c.Close(ln)
+
+	res, err := c.CreateContracts(req)
+	require.NoError(t, err)
+
+	for _, granteee := range grantees {
+		var (
+			hasReq = data.HasRoleRequest{
+				ContractAddress: res.GetComplianceAddress(),
+				Role:            ST_CONTROL_ROLE,
+				Account:         granteee,
+			}
+		)
+		hasRes, err := c.HasRole(hasReq)
+		require.NoError(t, err)
+		require.True(t, hasRes.GetHas())
+	}
 }

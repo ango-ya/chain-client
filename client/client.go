@@ -33,6 +33,7 @@ type BlockchainClient struct {
 
 	stABI abi.ABI
 	csABI abi.ABI
+	fcABI abi.ABI
 
 	timeout int64
 	logger  zerolog.Logger
@@ -50,6 +51,10 @@ func NewBlockchainClient(endpoint string, opts ...Option) (c BlockchainClient, e
 	}
 
 	if c.csABI, err = abi.JSON(strings.NewReader(contract.ComplianceServiceABI)); err != nil {
+		return
+	}
+
+	if c.fcABI, err = abi.JSON(strings.NewReader(contract.FactoryV0ABI)); err != nil {
 		return
 	}
 
@@ -265,6 +270,27 @@ func (c *BlockchainClient) HasRole(req data.HasRoleRequest) (resp data.HasRoleRe
 	}
 
 	payload, err := request("HAS_ROLE", string(b))
+	if err != nil {
+		err = errors.Wrapf(err, "failed to request(=%v)", req)
+		return
+	}
+
+	if err = resp.Unmarshal([]byte(payload)); err != nil {
+		err = errors.Wrapf(err, "failed to unmarshall response(=%s)", payload)
+		return
+	}
+
+	return
+}
+
+func (c *BlockchainClient) CreateContracts(req data.CreateContractsRequest) (resp data.CreateContractsResponse, err error) {
+	b, err := req.Marshal()
+	if err != nil {
+		err = errors.Wrap(err, "failed to marshal")
+		return
+	}
+
+	payload, err := request("CREATE_CONTRACTS", string(b))
 	if err != nil {
 		err = errors.Wrapf(err, "failed to request(=%v)", req)
 		return

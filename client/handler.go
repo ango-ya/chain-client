@@ -35,6 +35,8 @@ func (c *BlockchainClient) handler(msg *svrdata.Message) ([]byte, error) {
 		return c.handleBalanceOf(ctx, msg.GetPayload())
 	case "HAS_ROLE":
 		return c.handleHasRole(ctx, msg.GetPayload())
+	case "CREATE_CONTRACTS":
+		return c.handleCreateContracts(ctx, msg.GetPayload())
 	default:
 	}
 
@@ -288,6 +290,54 @@ func (c *BlockchainClient) handleHasRole(ctx context.Context, payload string) ([
 	)
 	resp := data.HasRoleResponse{
 		Has: has,
+	}
+
+	return resp.Marshal()
+}
+
+func (c *BlockchainClient) handleCreateContracts(ctx context.Context, payload string) ([]byte, error) {
+	var (
+		req      data.CreateContractsRequest
+		grantees = []common.Address{}
+	)
+	if err := req.Unmarshal([]byte(payload)); err != nil {
+		return nil, errors.Wrap(err, "failed to unmarshall CreateContractsRequest")
+	}
+
+	initalSupply, err := data.ToWei(req.GetInitialSupply(), 18)
+	if err != nil {
+		return nil, errors.Wrapf(err, "invalid inital supply(=%v)", req.GetInitialSupply())
+	}
+
+	for _, grantee := range req.GetGrantees() {
+		grantees = append(grantees, common.HexToAddress(grantee))
+	}
+
+	var (
+		contractAddress = common.HexToAddress(req.GetContractAddress())
+		input, _        = c.fcABI.Pack("create", []interface{}{req.GetName(), req.GetSymbol(), initalSupply, grantees}...)
+	)
+	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), &contractAddress, nil, input)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed sync send deploy transaction")
+	}
+
+	receipt, err := c.ethclient.Receipt(ctx, hash)
+	if err != nil {
+		return nil, errors.Wrapf(err, "failed to get the receipt of deployed transaction(=%s)", hash)
+	}
+
+	clog := contract.FactoryV0Created{}
+	if err := c.fcABI.UnpackIntoInterface(&clog, "Created", receipt.Logs[len(receipt.Logs)-1].Data); err != nil {
+		return nil, errors.Wrapf(err, "failed unpack log transaction(=%v)", receipt.Logs)
+	}
+
+	c.logger.Info().Msgf("contract deployed, name=%s, symbol=%s, supply=%s, granteees=%v, contract=%s", req.GetName(), req.GetSymbol(), req.GetInitialSupply(), req.GetGrantees(), receipt.ContractAddress.String())
+
+	resp := data.CreateContractsResponse{
+		Hash:              hash,
+		ComplianceAddress: clog.Compliance.String(),
+		TokenAddress:      clog.Token.String(),
 	}
 
 	return resp.Marshal()
