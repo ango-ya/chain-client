@@ -10,7 +10,7 @@ require (
 	github.com/rs/zerolog v1.27.0
 	github.com/shopspring/decimal v1.3.1
 	github.com/stretchr/testify v1.7.2
-	github.com/tak1827/eth-extended-client v0.0.4
+	github.com/tak1827/eth-extended-client v0.0.5
 	github.com/tak1827/fast-domain-socket-server v0.0.2
 	github.com/tak1827/transaction-confirmer v0.0.1
 )

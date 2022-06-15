@@ -19,6 +19,10 @@ func (c *BlockchainClient) handler(msg *svrdata.Message) ([]byte, error) {
 	defer cancel()
 
 	switch msg.GetType() {
+	case "SEND_ETH":
+		return c.handleSendETH(ctx, msg.GetPayload())
+	case "BALANCE_OF_ETH":
+		return c.handleBalanceOfETH(ctx, msg.GetPayload())
 	case "DEPLOY_ST":
 		return c.handleDeployST(ctx, msg.GetPayload())
 	case "DEPLOY_CS":
@@ -45,6 +49,56 @@ func (c *BlockchainClient) handler(msg *svrdata.Message) ([]byte, error) {
 
 func (c *BlockchainClient) errHandler(err error) {
 	c.logger.Error().Stack().Err(err).Msg("at BlockchainClient.errHandler")
+}
+
+func (c *BlockchainClient) handleSendETH(ctx context.Context, payload string) ([]byte, error) {
+	var req data.SendETHRequest
+	if err := req.Unmarshal([]byte(payload)); err != nil {
+		return nil, errors.Wrap(err, "failed to unmarshall SendETHRequest")
+	}
+
+	amount, err := data.ToWei(req.GetAmount(), 18)
+	if err != nil {
+		return nil, errors.Wrapf(err, "invalid amount(=%v)", req.GetAmount())
+	}
+
+	var (
+		recipient = common.HexToAddress(req.GetRecipient())
+	)
+
+	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), &recipient, amount, nil)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed sync send transaction")
+	}
+
+	c.logger.Info().Msgf("eth sent, amount=%s, recipient=%s", req.GetAmount(), req.GetRecipient())
+
+	resp := data.SendETHResponse{
+		Hash: hash,
+	}
+
+	return resp.Marshal()
+}
+
+func (c *BlockchainClient) handleBalanceOfETH(ctx context.Context, payload string) ([]byte, error) {
+	var req data.BalanceOfETHRequest
+	if err := req.Unmarshal([]byte(payload)); err != nil {
+		return nil, errors.Wrap(err, "failed to unmarshall BalanceOfETHRequest")
+	}
+
+	var (
+		account = common.HexToAddress(req.GetAccount())
+	)
+	amount, err := c.ethclient.BalanceOf(ctx, account)
+	if err != nil {
+		return nil, errors.Wrapf(err, "failed to get the balance of %s", req.GetAccount())
+	}
+
+	resp := data.BalanceOfETHResponse{
+		Amount: amount.String(),
+	}
+
+	return resp.Marshal()
 }
 
 func (c *BlockchainClient) handleDeployST(ctx context.Context, payload string) ([]byte, error) {

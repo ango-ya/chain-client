@@ -6,6 +6,7 @@ import (
 
 	"github.com/ango-ya/chain-client/data"
 	"github.com/stretchr/testify/require"
+	eclient "github.com/tak1827/eth-extended-client/client"
 	// "go.uber.org/goleak"
 )
 
@@ -31,6 +32,31 @@ func TestShutdown(t *testing.T) {
 	time.Sleep(1 * time.Second)
 
 	c.Close(ln)
+}
+
+func TestETH(t *testing.T) {
+	var (
+		c, _         = NewBlockchainClient(TestEndpoint, WithTimeout(3))
+		recipient, _ = eclient.GenerateAddr()
+		req          = data.SendETHRequest{
+			PrivateKey: TestPrivKey3,
+			Recipient:  recipient.String(),
+			Amount:     "1",
+		}
+		expected = eclient.ToWei(1.0, 18).String()
+	)
+	ln, _ := c.Start()
+	defer c.Close(ln)
+
+	_, err := c.SendETH(req)
+	require.NoError(t, err)
+
+	bReq := data.BalanceOfETHRequest{
+		Account: recipient.String(),
+	}
+	bRes, err := c.BalanceOfETH(bReq)
+	require.NoError(t, err)
+	require.Equal(t, expected, bRes.GetAmount())
 }
 
 func TestDeploySecurityToken(t *testing.T) {

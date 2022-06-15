@@ -115,6 +115,48 @@ func (c *BlockchainClient) Close(ln net.Listener) {
 	return
 }
 
+func (c *BlockchainClient) SendETH(req data.SendETHRequest) (resp data.SendETHResponse, err error) {
+	b, err := req.Marshal()
+	if err != nil {
+		err = errors.Wrap(err, "failed to marshal")
+		return
+	}
+
+	payload, err := request("SEND_ETH", string(b))
+	if err != nil {
+		err = errors.Wrapf(err, "failed to request(=%v)", req)
+		return
+	}
+
+	if err = resp.Unmarshal([]byte(payload)); err != nil {
+		err = errors.Wrapf(err, "failed to unmarshall response(=%s)", payload)
+		return
+	}
+
+	return
+}
+
+func (c *BlockchainClient) BalanceOfETH(req data.BalanceOfETHRequest) (resp data.BalanceOfETHResponse, err error) {
+	b, err := req.Marshal()
+	if err != nil {
+		err = errors.Wrap(err, "failed to marshal")
+		return
+	}
+
+	payload, err := request("BALANCE_OF_ETH", string(b))
+	if err != nil {
+		err = errors.Wrapf(err, "failed to request(=%v)", req)
+		return
+	}
+
+	if err = resp.Unmarshal([]byte(payload)); err != nil {
+		err = errors.Wrapf(err, "failed to unmarshall response(=%s)", payload)
+		return
+	}
+
+	return
+}
+
 func (c *BlockchainClient) DeploySecurityToken(req data.DeploySTRequest) (resp data.DeploySTResponse, err error) {
 	b, err := req.Marshal()
 	if err != nil {

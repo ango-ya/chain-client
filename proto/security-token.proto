@@ -17,22 +17,45 @@ option (gogoproto.goproto_unrecognized_all) = false;
 option (gogoproto.goproto_sizecache_all)    = false;
 
 enum RequestType {
+  // eth
+  SEND_ETH       = 0;
+  BALANCE_OF_ETH = 1;
+
   // st
-  DEPLOY_ST       = 0;
-  ISSUE           = 1;
-  REDEEM          = 2;
-  TRANSFER        = 3;
-  REGISTER_WALLET = 4;
-  TOTAL_SUPPLY    = 5;
-  BALANCE_OF      = 6;
+  DEPLOY_ST       = 10;
+  ISSUE           = 11;
+  REDEEM          = 12;
+  TRANSFER        = 13;
+  REGISTER_WALLET = 14;
+  TOTAL_SUPPLY    = 15;
+  BALANCE_OF      = 16;
 
   // compliance
-  DEPLOY_CS  = 10;
-  GRANT_ROLE = 11;
-  HAS_ROLE   = 12;
+  DEPLOY_CS  = 20;
+  GRANT_ROLE = 21;
+  HAS_ROLE   = 22;
 
   // factory
-  CREATE_CONTRACTS = 20;
+  CREATE_CONTRACTS = 30;
+}
+
+// ----- eth -----
+message SendETHRequest {
+  string private_key = 1;
+  string recipient   = 2;
+  string amount      = 3;
+}
+
+message SendETHResponse {
+  string hash = 1;
+}
+
+message BalanceOfETHRequest {
+  string account = 1;
+}
+
+message BalanceOfETHResponse {
+  string amount = 1;
 }
 
 // ----- st -----
