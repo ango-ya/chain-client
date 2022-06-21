@@ -325,6 +325,27 @@ func (c *BlockchainClient) HasRole(req data.HasRoleRequest) (resp data.HasRoleRe
 	return
 }
 
+func (c *BlockchainClient) DeployFactory(req data.DeployFCRequest) (resp data.DeployFCResponse, err error) {
+	b, err := req.Marshal()
+	if err != nil {
+		err = errors.Wrap(err, "failed to marshal")
+		return
+	}
+
+	payload, err := request("DEPLOY_FC", string(b))
+	if err != nil {
+		err = errors.Wrapf(err, "failed to request(=%v)", req)
+		return
+	}
+
+	if err = resp.Unmarshal([]byte(payload)); err != nil {
+		err = errors.Wrapf(err, "failed to unmarshall response(=%s)", payload)
+		return
+	}
+
+	return
+}
+
 func (c *BlockchainClient) CreateContracts(req data.CreateContractsRequest) (resp data.CreateContractsResponse, err error) {
 	b, err := req.Marshal()
 	if err != nil {

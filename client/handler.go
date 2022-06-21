@@ -24,9 +24,9 @@ func (c *BlockchainClient) handler(msg *svrdata.Message) ([]byte, error) {
 	case "BALANCE_OF_ETH":
 		return c.handleBalanceOfETH(ctx, msg.GetPayload())
 	case "DEPLOY_ST":
-		return c.handleDeployST(ctx, msg.GetPayload())
+		return c.handleDeploySecurityToken(ctx, msg.GetPayload())
 	case "DEPLOY_CS":
-		return c.handleDeployCS(ctx, msg.GetPayload())
+		return c.handleDeployComplianceService(ctx, msg.GetPayload())
 	case "ISSUE":
 		return c.handleIssue(ctx, msg.GetPayload())
 	case "REGISTER_WALLET":
@@ -39,6 +39,8 @@ func (c *BlockchainClient) handler(msg *svrdata.Message) ([]byte, error) {
 		return c.handleBalanceOf(ctx, msg.GetPayload())
 	case "HAS_ROLE":
 		return c.handleHasRole(ctx, msg.GetPayload())
+	case "DEPLOY_FC":
+		return c.handleDeployFactory(ctx, msg.GetPayload())
 	case "CREATE_CONTRACTS":
 		return c.handleCreateContracts(ctx, msg.GetPayload())
 	default:
@@ -101,7 +103,7 @@ func (c *BlockchainClient) handleBalanceOfETH(ctx context.Context, payload strin
 	return resp.Marshal()
 }
 
-func (c *BlockchainClient) handleDeployST(ctx context.Context, payload string) ([]byte, error) {
+func (c *BlockchainClient) handleDeploySecurityToken(ctx context.Context, payload string) ([]byte, error) {
 	var req data.DeploySTRequest
 	if err := req.Unmarshal([]byte(payload)); err != nil {
 		return nil, errors.Wrap(err, "failed to unmarshall DeploySTRequest")
@@ -137,7 +139,7 @@ func (c *BlockchainClient) handleDeployST(ctx context.Context, payload string) (
 	return resp.Marshal()
 }
 
-func (c *BlockchainClient) handleDeployCS(ctx context.Context, payload string) ([]byte, error) {
+func (c *BlockchainClient) handleDeployComplianceService(ctx context.Context, payload string) ([]byte, error) {
 	var req data.DeployCSRequest
 	if err := req.Unmarshal([]byte(payload)); err != nil {
 		return nil, errors.Wrap(err, "failed to unmarshall DeployCSRequest")
@@ -344,6 +346,35 @@ func (c *BlockchainClient) handleHasRole(ctx context.Context, payload string) ([
 	)
 	resp := data.HasRoleResponse{
 		Has: has,
+	}
+
+	return resp.Marshal()
+}
+
+func (c *BlockchainClient) handleDeployFactory(ctx context.Context, payload string) ([]byte, error) {
+	var req data.DeployFCRequest
+	if err := req.Unmarshal([]byte(payload)); err != nil {
+		return nil, errors.Wrap(err, "failed to unmarshall DeployFCRequest")
+	}
+
+	var (
+		bytecode = common.FromHex(contract.FactoryV0Bin)
+	)
+	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), nil, nil, bytecode)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed sync send deploy transaction")
+	}
+
+	receipt, err := c.ethclient.Receipt(ctx, hash)
+	if err != nil {
+		return nil, errors.Wrapf(err, "failed to get the receipt of deployed transaction(=%s)", hash)
+	}
+
+	c.logger.Info().Msgf("contract deployed, contract=%s", receipt.ContractAddress.String())
+
+	resp := data.DeployFCResponse{
+		Hash:            hash,
+		ContractAddress: receipt.ContractAddress.String(),
 	}
 
 	return resp.Marshal()
