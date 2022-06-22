@@ -417,7 +417,7 @@ func (c *BlockchainClient) handleCreateContracts(ctx context.Context, payload st
 		return nil, errors.Wrapf(err, "failed unpack log transaction(=%v)", receipt.Logs)
 	}
 
-	c.logger.Info().Msgf("contract deployed, name=%s, symbol=%s, supply=%s, granteees=%v, contract=%s", req.GetName(), req.GetSymbol(), req.GetInitialSupply(), req.GetGrantees(), receipt.ContractAddress.String())
+	c.logger.Info().Msgf("contract deployed, name=%s, symbol=%s, supply=%s, granteees=%v, compliance=%s, token=%s", req.GetName(), req.GetSymbol(), req.GetInitialSupply(), req.GetGrantees(), clog.Compliance.String(), clog.Token.String())
 
 	resp := data.CreateContractsResponse{
 		Hash:              hash,
