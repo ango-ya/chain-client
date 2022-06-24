@@ -141,7 +141,7 @@ func TestComplianceService(t *testing.T) {
 		gReq     = data.GrantRoleRequest{
 			PrivateKey:      TestPrivKey,
 			ContractAddress: res.GetContractAddress(),
-			Role:            ST_CONTROL_ROLE,
+			Role:            data.ST_CONTROL_ROLE,
 			Grantee:         granteee,
 		}
 	)
@@ -151,7 +151,7 @@ func TestComplianceService(t *testing.T) {
 	var (
 		hasReq = data.HasRoleRequest{
 			ContractAddress: res.GetContractAddress(),
-			Role:            ST_CONTROL_ROLE,
+			Role:            data.ST_CONTROL_ROLE,
 			Account:         granteee,
 		}
 	)
@@ -193,7 +193,7 @@ func TestFactory(t *testing.T) {
 		var (
 			hasReq = data.HasRoleRequest{
 				ContractAddress: cRes.GetComplianceAddress(),
-				Role:            ST_CONTROL_ROLE,
+				Role:            data.ST_CONTROL_ROLE,
 				Account:         granteee,
 			}
 		)

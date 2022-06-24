@@ -18,9 +18,7 @@ import (
 )
 
 const (
-	SockFilePath    = "./domain.sock"
-	ST_CONTROL_ROLE = "b6ce5d7b1abd7b8db19bd268a06356fe343d6a81aca7f86455289d12aecbdcda"
-	ST_EDIT_ROLE    = "025c10ffb4b4f977a8899da54e53278bc52863e80645c6b1f1ee5085ab0069bc"
+	SockFilePath = "./domain.sock"
 )
 
 var (
