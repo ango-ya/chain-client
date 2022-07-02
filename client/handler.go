@@ -187,7 +187,7 @@ func (c *BlockchainClient) handleIssue(ctx context.Context, payload string) ([]b
 
 	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), &contractAddress, nil, input)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed sync send deploy transaction")
+		return nil, errors.Wrap(err, "failed sync send issue transaction")
 	}
 
 	c.logger.Info().Msgf("token issued, amount=%s, recipient=%s, contract=%s", req.GetAmount(), req.GetRecipient(), req.GetContractAddress())
@@ -213,7 +213,7 @@ func (c *BlockchainClient) handleRegisterWallet(ctx context.Context, payload str
 
 	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), &contractAddress, nil, input)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed sync send deploy transaction")
+		return nil, errors.Wrap(err, "failed sync send register wallet transaction")
 	}
 
 	c.logger.Info().Msgf("wallet registerd, account=%s contract=%s", req.GetAccount(), req.GetContractAddress())
