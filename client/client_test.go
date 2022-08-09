@@ -18,6 +18,8 @@ const (
 	TestAccount2             = "0x26fa9f1a6568b42e29b1787c403B3628dFC0C6FE"
 	TestPrivKey3             = "df38daebd09f56398cc8fd699b72f5ea6e416878312e1692476950f427928e7d"
 	TestAccount3             = "0x31a6EE302c1E7602685c86EF7a3069210Bc26670"
+	TestPrivKey4             = "97d12403ffc2faa3660730ae58bca14a894ebd78b4d8207d22083554ae96be5c"
+	TestAccount4             = "0xa52ce7A3B18095800ed1f550065DF9Cd5ca5ce9f"
 	TestComplianceAddress    = "0xe868feADdAA8965b6e64BDD50a14cD41e3D5245D"
 	TestSecurityTokenAddress = "0xA7E7717817776181f64b46f9e4EFC75e181f9Dce"
 )
@@ -86,7 +88,7 @@ func TestDeploySecurityToken(t *testing.T) {
 	require.Equal(t, expected.String(), supRes.GetAmount())
 }
 
-func TestIssueSecurityToken(t *testing.T) {
+func TestIssueTransferSecurityToken(t *testing.T) {
 	var (
 		c, _ = NewBlockchainClient(TestEndpoint, WithTimeout(3))
 		req  = data.RegisterWalletRequest{
@@ -98,17 +100,16 @@ func TestIssueSecurityToken(t *testing.T) {
 	ln, err := c.Start()
 	defer c.Close(ln)
 
+	// トークンの発行
 	_, err = c.RegisterWalletComplianceService(req)
 	require.NoError(t, err)
 
-	issReq := data.IssueRequest{
+	_, err = c.IssueSecurityToken(data.IssueRequest{
 		PrivateKey:      TestPrivKey2,
 		ContractAddress: TestSecurityTokenAddress,
 		Recipient:       TestAccount3,
 		Amount:          "100",
-	}
-
-	_, err = c.IssueSecurityToken(issReq)
+	})
 	require.NoError(t, err)
 
 	var (
@@ -116,9 +117,28 @@ func TestIssueSecurityToken(t *testing.T) {
 			ContractAddress: TestSecurityTokenAddress,
 			Account:         TestAccount3,
 		}
-		expected, _ = data.ToWei(issReq.GetAmount(), 18)
+		expected, _ = data.ToWei("100", 18)
 	)
 	balRes, err := c.BalanceOfSecurityToken(balReq)
+	require.NoError(t, err)
+	require.Equal(t, expected.String(), balRes.GetAmount())
+
+	// トークンの移転
+	req.Account = TestAccount4
+	_, err = c.RegisterWalletComplianceService(req)
+	require.NoError(t, err)
+
+	_, err = c.TransferSecurityToken(data.TransferRequest{
+		PrivateKey:      TestPrivKey3,
+		ContractAddress: TestSecurityTokenAddress,
+		Recipient:       TestAccount4,
+		Amount:          "50",
+	})
+	require.NoError(t, err)
+
+	balReq.Account = TestAccount4
+	expected, _ = data.ToWei("50", 18)
+	balRes, err = c.BalanceOfSecurityToken(balReq)
 	require.NoError(t, err)
 	require.Equal(t, expected.String(), balRes.GetAmount())
 }

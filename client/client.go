@@ -218,6 +218,27 @@ func (c *BlockchainClient) IssueSecurityToken(req data.IssueRequest) (resp data.
 	return
 }
 
+func (c *BlockchainClient) TransferSecurityToken(req data.TransferRequest) (resp data.TransferResponse, err error) {
+	b, err := req.Marshal()
+	if err != nil {
+		err = errors.Wrap(err, "failed to marshal")
+		return
+	}
+
+	payload, err := request("TRANSFER", string(b))
+	if err != nil {
+		err = errors.Wrapf(err, "failed to request(=%v)", req)
+		return
+	}
+
+	if err = resp.Unmarshal([]byte(payload)); err != nil {
+		err = errors.Wrapf(err, "failed to unmarshall response(=%s)", payload)
+		return
+	}
+
+	return
+}
+
 func (c *BlockchainClient) RegisterWalletComplianceService(req data.RegisterWalletRequest) (resp data.RegisterWalletResponse, err error) {
 	b, err := req.Marshal()
 	if err != nil {

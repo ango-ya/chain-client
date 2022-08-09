@@ -29,6 +29,8 @@ func (c *BlockchainClient) handler(msg *svrdata.Message) ([]byte, error) {
 		return c.handleDeployComplianceService(ctx, msg.GetPayload())
 	case "ISSUE":
 		return c.handleIssue(ctx, msg.GetPayload())
+	case "TRANSFER":
+		return c.handleTransfer(ctx, msg.GetPayload())
 	case "REGISTER_WALLET":
 		return c.handleRegisterWallet(ctx, msg.GetPayload())
 	case "GRANT_ROLE":
@@ -193,6 +195,37 @@ func (c *BlockchainClient) handleIssue(ctx context.Context, payload string) ([]b
 	c.logger.Info().Msgf("token issued, amount=%s, recipient=%s, contract=%s", req.GetAmount(), req.GetRecipient(), req.GetContractAddress())
 
 	resp := data.IssueResponse{
+		Hash: hash,
+	}
+
+	return resp.Marshal()
+}
+
+func (c *BlockchainClient) handleTransfer(ctx context.Context, payload string) ([]byte, error) {
+	var req data.TransferRequest
+	if err := req.Unmarshal([]byte(payload)); err != nil {
+		return nil, errors.Wrap(err, "failed to unmarshall TransferRequest")
+	}
+
+	amount, err := data.ToWei(req.GetAmount(), 18)
+	if err != nil {
+		return nil, errors.Wrapf(err, "invalid amount(=%v)", req.GetAmount())
+	}
+
+	var (
+		contractAddress = common.HexToAddress(req.GetContractAddress())
+		recipient       = common.HexToAddress(req.GetRecipient())
+		input, _        = c.stABI.Pack("transfer", []interface{}{recipient, amount}...)
+	)
+
+	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), &contractAddress, nil, input)
+	if err != nil {
+		return nil, errors.Wrap(err, "failed sync send transfer transaction")
+	}
+
+	c.logger.Info().Msgf("token transferd, amount=%s, recipient=%s, contract=%s", req.GetAmount(), req.GetRecipient(), req.GetContractAddress())
+
+	resp := data.TransferResponse{
 		Hash: hash,
 	}
 
