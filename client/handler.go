@@ -70,7 +70,7 @@ func (c *BlockchainClient) handleSendETH(ctx context.Context, payload string) ([
 		recipient = common.HexToAddress(req.GetRecipient())
 	)
 
-	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), &recipient, amount, nil)
+	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), &recipient, amount, nil, 0)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed sync send transaction")
 	}
@@ -121,7 +121,7 @@ func (c *BlockchainClient) handleDeploySecurityToken(ctx context.Context, payloa
 		input, _          = c.stABI.Pack("", []interface{}{req.GetName(), req.GetSymbol(), initalSupply, complianceAddress}...)
 		bytecode          = common.FromHex(contract.SecurityTokenBin)
 	)
-	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), nil, nil, append(bytecode, input...))
+	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), nil, nil, append(bytecode, input...), 0)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed sync send deploy transaction")
 	}
@@ -150,7 +150,7 @@ func (c *BlockchainClient) handleDeployComplianceService(ctx context.Context, pa
 	var (
 		bytecode = common.FromHex(contract.ComplianceServiceBin)
 	)
-	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), nil, nil, bytecode)
+	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), nil, nil, bytecode, 0)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed sync send deploy transaction")
 	}
@@ -187,9 +187,9 @@ func (c *BlockchainClient) handleIssue(ctx context.Context, payload string) ([]b
 		input, _        = c.stABI.Pack("issue", []interface{}{recipient, amount}...)
 	)
 
-	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), &contractAddress, nil, input)
+	hash, err := c.send(ctx, req.GetPrivateKey(), &contractAddress, nil, input, req.GetGasLimit(), req.GetIsAsync())
 	if err != nil {
-		return nil, errors.Wrap(err, "failed sync send issue transaction")
+		return nil, errors.Wrapf(err, "faile to send token issue transaction")
 	}
 
 	c.logger.Info().Msgf("token issued, amount=%s, recipient=%s, contract=%s", req.GetAmount(), req.GetRecipient(), req.GetContractAddress())
@@ -218,9 +218,9 @@ func (c *BlockchainClient) handleTransfer(ctx context.Context, payload string) (
 		input, _        = c.stABI.Pack("transfer", []interface{}{recipient, amount}...)
 	)
 
-	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), &contractAddress, nil, input)
+	hash, err := c.send(ctx, req.GetPrivateKey(), &contractAddress, nil, input, req.GetGasLimit(), req.GetIsAsync())
 	if err != nil {
-		return nil, errors.Wrap(err, "failed sync send transfer transaction")
+		return nil, errors.Wrapf(err, "faile to send token transfer transaction")
 	}
 
 	c.logger.Info().Msgf("token transferd, amount=%s, recipient=%s, contract=%s", req.GetAmount(), req.GetRecipient(), req.GetContractAddress())
@@ -244,9 +244,9 @@ func (c *BlockchainClient) handleRegisterWallet(ctx context.Context, payload str
 		input, _        = c.csABI.Pack("registerWallet", []interface{}{account}...)
 	)
 
-	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), &contractAddress, nil, input)
+	hash, err := c.send(ctx, req.GetPrivateKey(), &contractAddress, nil, input, req.GetGasLimit(), req.GetIsAsync())
 	if err != nil {
-		return nil, errors.Wrap(err, "failed sync send register wallet transaction")
+		return nil, errors.Wrapf(err, "faile to send register wallet transaction")
 	}
 
 	c.logger.Info().Msgf("wallet registerd, account=%s contract=%s", req.GetAccount(), req.GetContractAddress())
@@ -280,7 +280,7 @@ func (c *BlockchainClient) handleGrantRole(ctx context.Context, payload string) 
 		input, _        = c.csABI.Pack("setupRole", []interface{}{role, grantee}...)
 	)
 
-	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), &contractAddress, nil, input)
+	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), &contractAddress, nil, input, 0)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed sync send deploy transaction")
 	}
@@ -393,7 +393,7 @@ func (c *BlockchainClient) handleDeployFactory(ctx context.Context, payload stri
 	var (
 		bytecode = common.FromHex(contract.FactoryV0Bin)
 	)
-	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), nil, nil, bytecode)
+	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), nil, nil, bytecode, 0)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed sync send deploy transaction")
 	}
@@ -435,7 +435,7 @@ func (c *BlockchainClient) handleCreateContracts(ctx context.Context, payload st
 		contractAddress = common.HexToAddress(req.GetContractAddress())
 		input, _        = c.fcABI.Pack("create", []interface{}{req.GetName(), req.GetSymbol(), initalSupply, grantees}...)
 	)
-	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), &contractAddress, nil, input)
+	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), &contractAddress, nil, input, 0)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed sync send deploy transaction")
 	}
@@ -459,4 +459,24 @@ func (c *BlockchainClient) handleCreateContracts(ctx context.Context, payload st
 	}
 
 	return resp.Marshal()
+}
+
+func (c *BlockchainClient) send(ctx context.Context, priv string, to *common.Address, amount *big.Int, input []byte, gasLimit uint64, isAsync bool) (hash string, err error) {
+	if !isAsync {
+		if hash, err = c.ethclient.SyncSend(ctx, priv, to, amount, input, gasLimit); err != nil {
+			err = errors.Wrap(err, "failed sync sending")
+		}
+		return
+	}
+
+	if hash, err = c.ethclient.AsyncSend(ctx, priv, to, amount, input, gasLimit); err != nil {
+		err = errors.Wrap(err, "failed async sending")
+		return
+	}
+
+	if err = c.ethclient.EnqueueTxHash(ctx, hash); err != nil {
+		err = errors.Wrapf(err, "failed to enqueu async transaction(=%s)", hash)
+		return
+	}
+	return
 }

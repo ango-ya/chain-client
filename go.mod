@@ -10,9 +10,9 @@ require (
 	github.com/rs/zerolog v1.27.0
 	github.com/shopspring/decimal v1.3.1
 	github.com/stretchr/testify v1.7.2
-	github.com/tak1827/eth-extended-client v0.0.6
+	github.com/tak1827/eth-extended-client v0.0.8-0.20220928091213-715b46ce365d
 	github.com/tak1827/fast-domain-socket-server v0.0.2
-	github.com/tak1827/transaction-confirmer v0.0.1
+	github.com/tak1827/transaction-confirmer v0.0.2-0.20220928004933-8aa6eff26b27
 )
 
 require (
@@ -31,9 +31,9 @@ require (
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rjeczalik/notify v0.9.1 // indirect
 	github.com/shirou/gopsutil v3.21.4-0.20210419000835-c7a38de76ee5+incompatible // indirect
-	github.com/tak1827/go-cache v0.0.3 // indirect
+	github.com/tak1827/go-cache v0.0.4 // indirect
 	github.com/tak1827/go-queue v0.0.1 // indirect
-	github.com/tak1827/nonce-incrementor v0.0.0-20211230050937-a653087ec99f // indirect
+	github.com/tak1827/nonce-incrementor v0.0.0-20220909065110-864dbafb5e9e // indirect
 	github.com/tklauser/go-sysconf v0.3.5 // indirect
 	github.com/tklauser/numcpus v0.2.2 // indirect
 	golang.org/x/crypto v0.0.0-20211215165025-cf75a172585e // indirect

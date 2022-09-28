@@ -222,3 +222,36 @@ func TestFactory(t *testing.T) {
 		require.True(t, hasRes.GetHas())
 	}
 }
+
+func TestAsyncSend(t *testing.T) {
+	var (
+		c, _ = NewBlockchainClient(TestEndpoint, WithTimeout(3))
+	)
+	ln, err := c.Start()
+	defer c.Close(ln)
+
+	// 正常に終了する想定
+	req := data.RegisterWalletRequest{
+		PrivateKey:      TestPrivKey2,
+		ContractAddress: TestComplianceAddress,
+		Account:         TestAccount3,
+		IsAsync:         true,
+	}
+	_, err = c.RegisterWalletComplianceService(req)
+	require.NoError(t, err)
+
+	// 正常に終了するが、トランザクション自体は失敗する
+	req = data.RegisterWalletRequest{
+		PrivateKey:      TestPrivKey2,
+		ContractAddress: TestComplianceAddress,
+		Account:         TestAccount3,
+		IsAsync:         true,
+		GasLimit:        23000,
+	}
+	_, err = c.RegisterWalletComplianceService(req)
+	require.NoError(t, err)
+
+	time.Sleep(1 * time.Second)
+
+	// panic("confirm that error log output")
+}
