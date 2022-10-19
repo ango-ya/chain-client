@@ -91,18 +91,18 @@ func TestDeploySecurityToken(t *testing.T) {
 func TestIssueTransferSecurityToken(t *testing.T) {
 	var (
 		c, _ = NewBlockchainClient(TestEndpoint, WithTimeout(3))
-		req  = data.RegisterWalletRequest{
-			PrivateKey:      TestPrivKey2,
-			ContractAddress: TestComplianceAddress,
-			Account:         TestAccount3,
-		}
+		// req  = data.RegisterWalletRequest{
+		// 	PrivateKey:      TestPrivKey2,
+		// 	ContractAddress: TestComplianceAddress,
+		// 	Account:         TestAccount3,
+		// }
 	)
 	ln, err := c.Start()
 	defer c.Close(ln)
 
 	// トークンの発行
-	_, err = c.RegisterWalletComplianceService(req)
-	require.NoError(t, err)
+	// _, err = c.RegisterWalletComplianceService(req)
+	// require.NoError(t, err)
 
 	_, err = c.IssueSecurityToken(data.IssueRequest{
 		PrivateKey:      TestPrivKey2,
@@ -124,9 +124,9 @@ func TestIssueTransferSecurityToken(t *testing.T) {
 	require.Equal(t, expected.String(), balRes.GetAmount())
 
 	// トークンの移転
-	req.Account = TestAccount4
-	_, err = c.RegisterWalletComplianceService(req)
-	require.NoError(t, err)
+	// req.Account = TestAccount4
+	// _, err = c.RegisterWalletComplianceService(req)
+	// require.NoError(t, err)
 
 	_, err = c.TransferSecurityToken(data.TransferRequest{
 		PrivateKey:      TestPrivKey3,
