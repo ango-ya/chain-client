@@ -1,6 +1,7 @@
 package client
 
 import (
+	"context"
 	"testing"
 	"time"
 
@@ -28,15 +29,16 @@ func TestShutdown(t *testing.T) {
 	c, err := NewBlockchainClient(TestEndpoint, WithTimeout(3))
 	require.NoError(t, err)
 
-	ln, err := c.Start()
+	c.Start()
 
 	time.Sleep(1 * time.Second)
 
-	c.Close(ln)
+	c.Close()
 }
 
 func TestETH(t *testing.T) {
 	var (
+		ctx          = context.Background()
 		c, _         = NewBlockchainClient(TestEndpoint, WithTimeout(3))
 		recipient, _ = eclient.GenerateAddr()
 		req          = data.SendETHRequest{
@@ -46,22 +48,23 @@ func TestETH(t *testing.T) {
 		}
 		expected = eclient.ToWei(1.0, 18).String()
 	)
-	ln, _ := c.Start()
-	defer c.Close(ln)
+	c.Start()
+	defer c.Close()
 
-	_, err := c.SendETH(req)
+	_, err := c.SendETH(ctx, req)
 	require.NoError(t, err)
 
 	bReq := data.BalanceOfETHRequest{
 		Account: recipient.String(),
 	}
-	bRes, err := c.BalanceOfETH(bReq)
+	bRes, err := c.BalanceOfETH(ctx, bReq)
 	require.NoError(t, err)
 	require.Equal(t, expected, bRes.GetAmount())
 }
 
 func TestDeploySecurityToken(t *testing.T) {
 	var (
+		ctx  = context.Background()
 		c, _ = NewBlockchainClient(TestEndpoint, WithTimeout(3))
 		req  = data.DeploySTRequest{
 			PrivateKey:        TestPrivKey,
@@ -71,10 +74,10 @@ func TestDeploySecurityToken(t *testing.T) {
 			ComplianceAddress: TestComplianceAddress,
 		}
 	)
-	ln, err := c.Start()
-	defer c.Close(ln)
+	c.Start()
+	defer c.Close()
 
-	res, err := c.DeploySecurityToken(req)
+	res, err := c.DeploySecurityToken(ctx, req)
 	require.NoError(t, err)
 
 	var (
@@ -83,13 +86,14 @@ func TestDeploySecurityToken(t *testing.T) {
 		}
 		expected, _ = data.ToWei(req.GetInitialSupply(), 18)
 	)
-	supRes, err := c.TotalSupplySecurityToken(supReq)
+	supRes, err := c.TotalSupplySecurityToken(ctx, supReq)
 	require.NoError(t, err)
 	require.Equal(t, expected.String(), supRes.GetAmount())
 }
 
 func TestIssueTransferSecurityToken(t *testing.T) {
 	var (
+		ctx  = context.Background()
 		c, _ = NewBlockchainClient(TestEndpoint, WithTimeout(3))
 		// req  = data.RegisterWalletRequest{
 		// 	PrivateKey:      TestPrivKey2,
@@ -97,14 +101,14 @@ func TestIssueTransferSecurityToken(t *testing.T) {
 		// 	Account:         TestAccount3,
 		// }
 	)
-	ln, err := c.Start()
-	defer c.Close(ln)
+	c.Start()
+	defer c.Close()
 
 	// トークンの発行
-	// _, err = c.RegisterWalletComplianceService(req)
+	// _, err = c.RegisterWalletComplianceService(ctx, req)
 	// require.NoError(t, err)
 
-	_, err = c.IssueSecurityToken(data.IssueRequest{
+	_, err := c.IssueSecurityToken(ctx, data.IssueRequest{
 		PrivateKey:      TestPrivKey2,
 		ContractAddress: TestSecurityTokenAddress,
 		Recipient:       TestAccount3,
@@ -119,16 +123,16 @@ func TestIssueTransferSecurityToken(t *testing.T) {
 		}
 		expected, _ = data.ToWei("100", 18)
 	)
-	balRes, err := c.BalanceOfSecurityToken(balReq)
+	balRes, err := c.BalanceOfSecurityToken(ctx, balReq)
 	require.NoError(t, err)
 	require.Equal(t, expected.String(), balRes.GetAmount())
 
 	// トークンの移転
 	// req.Account = TestAccount4
-	// _, err = c.RegisterWalletComplianceService(req)
+	// _, err = c.RegisterWalletComplianceService(ctx, req)
 	// require.NoError(t, err)
 
-	_, err = c.TransferSecurityToken(data.TransferRequest{
+	_, err = c.TransferSecurityToken(ctx, data.TransferRequest{
 		PrivateKey:      TestPrivKey3,
 		ContractAddress: TestSecurityTokenAddress,
 		Recipient:       TestAccount4,
@@ -138,22 +142,23 @@ func TestIssueTransferSecurityToken(t *testing.T) {
 
 	balReq.Account = TestAccount4
 	expected, _ = data.ToWei("50", 18)
-	balRes, err = c.BalanceOfSecurityToken(balReq)
+	balRes, err = c.BalanceOfSecurityToken(ctx, balReq)
 	require.NoError(t, err)
 	require.Equal(t, expected.String(), balRes.GetAmount())
 }
 
 func TestComplianceService(t *testing.T) {
 	var (
+		ctx  = context.Background()
 		c, _ = NewBlockchainClient(TestEndpoint, WithTimeout(3))
 		req  = data.DeployCSRequest{
 			PrivateKey: TestPrivKey,
 		}
 	)
-	ln, err := c.Start()
-	defer c.Close(ln)
+	c.Start()
+	defer c.Close()
 
-	res, err := c.DeployComplianceService(req)
+	res, err := c.DeployComplianceService(ctx, req)
 	require.NoError(t, err)
 
 	var (
@@ -165,7 +170,7 @@ func TestComplianceService(t *testing.T) {
 			Grantee:         granteee,
 		}
 	)
-	_, err = c.GrantRole(gReq)
+	_, err = c.GrantRole(ctx, gReq)
 	require.NoError(t, err)
 
 	var (
@@ -175,13 +180,14 @@ func TestComplianceService(t *testing.T) {
 			Account:         granteee,
 		}
 	)
-	hasRes, err := c.HasRole(hasReq)
+	hasRes, err := c.HasRole(ctx, hasReq)
 	require.NoError(t, err)
 	require.True(t, hasRes.GetHas())
 }
 
 func TestFactory(t *testing.T) {
 	var (
+		ctx      = context.Background()
 		c, _     = NewBlockchainClient(TestEndpoint, WithTimeout(3))
 		grantees = []string{
 			"0xBfCD2b748782b2e958C06Fecfc6D7093599ed8c8",
@@ -191,10 +197,10 @@ func TestFactory(t *testing.T) {
 			PrivateKey: TestPrivKey,
 		}
 	)
-	ln, err := c.Start()
-	defer c.Close(ln)
+	c.Start()
+	defer c.Close()
 
-	res, err := c.DeployFactory(req)
+	res, err := c.DeployFactory(ctx, req)
 	require.NoError(t, err)
 
 	cReq := data.CreateContractsRequest{
@@ -206,7 +212,7 @@ func TestFactory(t *testing.T) {
 		Grantees:        grantees,
 	}
 
-	cRes, err := c.CreateContracts(cReq)
+	cRes, err := c.CreateContracts(ctx, cReq)
 	require.NoError(t, err)
 
 	for _, granteee := range grantees {
@@ -217,7 +223,7 @@ func TestFactory(t *testing.T) {
 				Account:         granteee,
 			}
 		)
-		hasRes, err := c.HasRole(hasReq)
+		hasRes, err := c.HasRole(ctx, hasReq)
 		require.NoError(t, err)
 		require.True(t, hasRes.GetHas())
 	}
@@ -225,10 +231,11 @@ func TestFactory(t *testing.T) {
 
 func TestAsyncSend(t *testing.T) {
 	var (
+		ctx  = context.Background()
 		c, _ = NewBlockchainClient(TestEndpoint, WithTimeout(3))
 	)
-	ln, err := c.Start()
-	defer c.Close(ln)
+	c.Start()
+	defer c.Close()
 
 	// 正常に終了する想定
 	req := data.RegisterWalletRequest{
@@ -237,7 +244,7 @@ func TestAsyncSend(t *testing.T) {
 		Account:         TestAccount3,
 		IsAsync:         true,
 	}
-	_, err = c.RegisterWalletComplianceService(req)
+	_, err := c.RegisterWalletComplianceService(ctx, req)
 	require.NoError(t, err)
 
 	// 正常に終了するが、トランザクション自体は失敗する
@@ -248,7 +255,7 @@ func TestAsyncSend(t *testing.T) {
 		IsAsync:         true,
 		GasLimit:        23000,
 	}
-	_, err = c.RegisterWalletComplianceService(req)
+	_, err = c.RegisterWalletComplianceService(ctx, req)
 	require.NoError(t, err)
 
 	time.Sleep(1 * time.Second)

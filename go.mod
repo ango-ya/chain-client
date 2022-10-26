@@ -11,7 +11,6 @@ require (
 	github.com/shopspring/decimal v1.3.1
 	github.com/stretchr/testify v1.7.2
 	github.com/tak1827/eth-extended-client v0.0.8-0.20220928091213-715b46ce365d
-	github.com/tak1827/fast-domain-socket-server v0.0.2
 	github.com/tak1827/transaction-confirmer v0.0.2-0.20220928004933-8aa6eff26b27
 )
 
