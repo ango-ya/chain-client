@@ -88,10 +88,13 @@ message IssueResponse {
 }
 
 message RedeemRequest {
-  string private_key = 1;
-  string account     = 2;
-  string amount      = 3;
-  string reason      = 4;
+  string private_key      = 1;
+  string contract_address = 2;
+  string account          = 3;
+  string amount           = 4;
+  string reason           = 5;
+  bool   is_async         = 6;
+  uint64 gas_limit        = 7;
 }
 
 message RedeemResponse {
