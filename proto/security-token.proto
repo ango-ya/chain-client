@@ -93,8 +93,6 @@ message RedeemRequest {
   string account          = 3;
   string amount           = 4;
   string reason           = 5;
-  bool   is_async         = 6;
-  uint64 gas_limit        = 7;
 }
 
 message RedeemResponse {
