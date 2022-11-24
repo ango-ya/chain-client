@@ -250,7 +250,7 @@ func (c *BlockchainClient) BurnSecurityToken(ctx context.Context, req data.Redee
 		account         = common.HexToAddress(req.GetAccount())
 		input, _        = c.stABI.Pack("redeem", []interface{}{account, amount, req.GetReason()}...)
 	)
-	hash, err := c.send(ctx, req.GetPrivateKey(), &contractAddress, nil, input, req.GetGasLimit(), req.GetIsAsync())
+	hash, err := c.send(ctx, req.GetPrivateKey(), &contractAddress, nil, input, 0, false)
 	if err != nil {
 		err = errors.Wrapf(err, "faile to send token burn transaction. contract=%s", req.GetContractAddress())
 		return
