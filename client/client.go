@@ -238,6 +238,32 @@ func (c *BlockchainClient) TransferSecurityToken(ctx context.Context, req data.T
 	return
 }
 
+func (c *BlockchainClient) BurnSecurityToken(ctx context.Context, req data.RedeemRequest) (resp data.RedeemResponse, err error) {
+	amount, err := data.ToWei(req.GetAmount(), 18)
+	if err != nil {
+		err = errors.Wrapf(err, "invalid amount(=%v)", req.GetAmount())
+		return
+	}
+
+	var (
+		contractAddress = common.HexToAddress(req.GetContractAddress())
+		account         = common.HexToAddress(req.GetAccount())
+		input, _        = c.stABI.Pack("redeem", []interface{}{account, amount, req.GetReason()}...)
+	)
+	hash, err := c.send(ctx, req.GetPrivateKey(), &contractAddress, nil, input, 0, false)
+	if err != nil {
+		err = errors.Wrapf(err, "faile to send token burn transaction. contract=%s", req.GetContractAddress())
+		return
+	}
+
+	c.logger.Info().Msgf("token burned, amount=%s, account=%s, contract=%s", req.GetAmount(), req.GetAccount(), req.GetContractAddress())
+
+	resp = data.RedeemResponse{
+		Hash: hash,
+	}
+	return
+}
+
 func (c *BlockchainClient) RegisterWalletComplianceService(ctx context.Context, req data.RegisterWalletRequest) (resp data.RegisterWalletResponse, err error) {
 	var (
 		contractAddress = common.HexToAddress(req.GetContractAddress())
