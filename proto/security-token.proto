@@ -141,11 +141,11 @@ message BalanceOfResponse {
   string amount = 1;
 }
 
-message TokenRequest {
+message GetTokenRequest {
   string contract_address = 1;
 }
 
-message TokenResponse {
+message GetTokenResponse {
   string name         = 1;
   string symbol       = 2;
   string total_supply = 3;
