@@ -141,6 +141,16 @@ message BalanceOfResponse {
   string amount = 1;
 }
 
+message TokenRequest {
+  string contract_address = 1;
+}
+
+message TokenResponse {
+  string name         = 1;
+  string symbol       = 2;
+  string total_supply = 3;
+}
+
 // ***** compliance *****
 
 message DeployCSRequest {
