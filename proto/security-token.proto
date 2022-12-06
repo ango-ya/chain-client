@@ -124,6 +124,22 @@ message RegisterWalletResponse {
   string hash = 1;
 }
 
+message NameRequest {
+  string contract_address = 1;
+}
+
+message NameResponse {
+  string name = 1;
+}
+
+message SymbolRequest {
+  string contract_address = 1;
+}
+
+message SymbolResponse {
+  string symbol = 1;
+}
+
 message TotalSupplyRequest {
   string contract_address = 1;
 }

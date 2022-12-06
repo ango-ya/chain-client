@@ -86,8 +86,14 @@ func TestDeploySecurityToken(t *testing.T) {
 		}
 		expected, _ = data.ToWei(req.GetInitialSupply(), 18)
 	)
+	nameRes, err := c.NameSecurityToken(ctx, data.NameRequest(supReq))
+	require.NoError(t, err)
+	symRes, err := c.SymbolSecurityToken(ctx, data.SymbolRequest(supReq))
+	require.NoError(t, err)
 	supRes, err := c.TotalSupplySecurityToken(ctx, supReq)
 	require.NoError(t, err)
+	require.Equal(t, req.GetName(), nameRes.GetName())
+	require.Equal(t, req.GetSymbol(), symRes.GetSymbol())
 	require.Equal(t, expected.String(), supRes.GetAmount())
 }
 
