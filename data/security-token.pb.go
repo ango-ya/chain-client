@@ -893,6 +893,178 @@ func (m *RegisterWalletResponse) GetHash() string {
 	return ""
 }
 
+type NameRequest struct {
+	ContractAddress string `protobuf:"bytes,1,opt,name=contract_address,json=contractAddress,proto3" json:"contract_address,omitempty"`
+}
+
+func (m *NameRequest) Reset()      { *m = NameRequest{} }
+func (*NameRequest) ProtoMessage() {}
+func (*NameRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0a3532adaf4834d5, []int{14}
+}
+func (m *NameRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *NameRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_NameRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *NameRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_NameRequest.Merge(m, src)
+}
+func (m *NameRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *NameRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_NameRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_NameRequest proto.InternalMessageInfo
+
+func (m *NameRequest) GetContractAddress() string {
+	if m != nil {
+		return m.ContractAddress
+	}
+	return ""
+}
+
+type NameResponse struct {
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+}
+
+func (m *NameResponse) Reset()      { *m = NameResponse{} }
+func (*NameResponse) ProtoMessage() {}
+func (*NameResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0a3532adaf4834d5, []int{15}
+}
+func (m *NameResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *NameResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_NameResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *NameResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_NameResponse.Merge(m, src)
+}
+func (m *NameResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *NameResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_NameResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_NameResponse proto.InternalMessageInfo
+
+func (m *NameResponse) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+type SymbolRequest struct {
+	ContractAddress string `protobuf:"bytes,1,opt,name=contract_address,json=contractAddress,proto3" json:"contract_address,omitempty"`
+}
+
+func (m *SymbolRequest) Reset()      { *m = SymbolRequest{} }
+func (*SymbolRequest) ProtoMessage() {}
+func (*SymbolRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0a3532adaf4834d5, []int{16}
+}
+func (m *SymbolRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *SymbolRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_SymbolRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *SymbolRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SymbolRequest.Merge(m, src)
+}
+func (m *SymbolRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *SymbolRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_SymbolRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SymbolRequest proto.InternalMessageInfo
+
+func (m *SymbolRequest) GetContractAddress() string {
+	if m != nil {
+		return m.ContractAddress
+	}
+	return ""
+}
+
+type SymbolResponse struct {
+	Symbol string `protobuf:"bytes,1,opt,name=symbol,proto3" json:"symbol,omitempty"`
+}
+
+func (m *SymbolResponse) Reset()      { *m = SymbolResponse{} }
+func (*SymbolResponse) ProtoMessage() {}
+func (*SymbolResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0a3532adaf4834d5, []int{17}
+}
+func (m *SymbolResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *SymbolResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_SymbolResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *SymbolResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SymbolResponse.Merge(m, src)
+}
+func (m *SymbolResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *SymbolResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_SymbolResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SymbolResponse proto.InternalMessageInfo
+
+func (m *SymbolResponse) GetSymbol() string {
+	if m != nil {
+		return m.Symbol
+	}
+	return ""
+}
+
 type TotalSupplyRequest struct {
 	ContractAddress string `protobuf:"bytes,1,opt,name=contract_address,json=contractAddress,proto3" json:"contract_address,omitempty"`
 }
@@ -900,7 +1072,7 @@ type TotalSupplyRequest struct {
 func (m *TotalSupplyRequest) Reset()      { *m = TotalSupplyRequest{} }
 func (*TotalSupplyRequest) ProtoMessage() {}
 func (*TotalSupplyRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0a3532adaf4834d5, []int{14}
+	return fileDescriptor_0a3532adaf4834d5, []int{18}
 }
 func (m *TotalSupplyRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -943,7 +1115,7 @@ type TotalSupplyResponse struct {
 func (m *TotalSupplyResponse) Reset()      { *m = TotalSupplyResponse{} }
 func (*TotalSupplyResponse) ProtoMessage() {}
 func (*TotalSupplyResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0a3532adaf4834d5, []int{15}
+	return fileDescriptor_0a3532adaf4834d5, []int{19}
 }
 func (m *TotalSupplyResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -987,7 +1159,7 @@ type BalanceOfRequest struct {
 func (m *BalanceOfRequest) Reset()      { *m = BalanceOfRequest{} }
 func (*BalanceOfRequest) ProtoMessage() {}
 func (*BalanceOfRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0a3532adaf4834d5, []int{16}
+	return fileDescriptor_0a3532adaf4834d5, []int{20}
 }
 func (m *BalanceOfRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1037,7 +1209,7 @@ type BalanceOfResponse struct {
 func (m *BalanceOfResponse) Reset()      { *m = BalanceOfResponse{} }
 func (*BalanceOfResponse) ProtoMessage() {}
 func (*BalanceOfResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0a3532adaf4834d5, []int{17}
+	return fileDescriptor_0a3532adaf4834d5, []int{21}
 }
 func (m *BalanceOfResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1073,108 +1245,6 @@ func (m *BalanceOfResponse) GetAmount() string {
 	return ""
 }
 
-type GetTokenRequest struct {
-	ContractAddress string `protobuf:"bytes,1,opt,name=contract_address,json=contractAddress,proto3" json:"contract_address,omitempty"`
-}
-
-func (m *GetTokenRequest) Reset()      { *m = GetTokenRequest{} }
-func (*GetTokenRequest) ProtoMessage() {}
-func (*GetTokenRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0a3532adaf4834d5, []int{18}
-}
-func (m *GetTokenRequest) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *GetTokenRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_GetTokenRequest.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *GetTokenRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetTokenRequest.Merge(m, src)
-}
-func (m *GetTokenRequest) XXX_Size() int {
-	return m.Size()
-}
-func (m *GetTokenRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetTokenRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetTokenRequest proto.InternalMessageInfo
-
-func (m *GetTokenRequest) GetContractAddress() string {
-	if m != nil {
-		return m.ContractAddress
-	}
-	return ""
-}
-
-type GetTokenResponse struct {
-	Name        string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Symbol      string `protobuf:"bytes,2,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	TotalSupply string `protobuf:"bytes,3,opt,name=total_supply,json=totalSupply,proto3" json:"total_supply,omitempty"`
-}
-
-func (m *GetTokenResponse) Reset()      { *m = GetTokenResponse{} }
-func (*GetTokenResponse) ProtoMessage() {}
-func (*GetTokenResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0a3532adaf4834d5, []int{19}
-}
-func (m *GetTokenResponse) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *GetTokenResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_GetTokenResponse.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *GetTokenResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetTokenResponse.Merge(m, src)
-}
-func (m *GetTokenResponse) XXX_Size() int {
-	return m.Size()
-}
-func (m *GetTokenResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetTokenResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetTokenResponse proto.InternalMessageInfo
-
-func (m *GetTokenResponse) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *GetTokenResponse) GetSymbol() string {
-	if m != nil {
-		return m.Symbol
-	}
-	return ""
-}
-
-func (m *GetTokenResponse) GetTotalSupply() string {
-	if m != nil {
-		return m.TotalSupply
-	}
-	return ""
-}
-
 type DeployCSRequest struct {
 	PrivateKey string `protobuf:"bytes,1,opt,name=private_key,json=privateKey,proto3" json:"private_key,omitempty"`
 }
@@ -1182,7 +1252,7 @@ type DeployCSRequest struct {
 func (m *DeployCSRequest) Reset()      { *m = DeployCSRequest{} }
 func (*DeployCSRequest) ProtoMessage() {}
 func (*DeployCSRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0a3532adaf4834d5, []int{20}
+	return fileDescriptor_0a3532adaf4834d5, []int{22}
 }
 func (m *DeployCSRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1226,7 +1296,7 @@ type DeployCSResponse struct {
 func (m *DeployCSResponse) Reset()      { *m = DeployCSResponse{} }
 func (*DeployCSResponse) ProtoMessage() {}
 func (*DeployCSResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0a3532adaf4834d5, []int{21}
+	return fileDescriptor_0a3532adaf4834d5, []int{23}
 }
 func (m *DeployCSResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1279,7 +1349,7 @@ type GrantRoleRequest struct {
 func (m *GrantRoleRequest) Reset()      { *m = GrantRoleRequest{} }
 func (*GrantRoleRequest) ProtoMessage() {}
 func (*GrantRoleRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0a3532adaf4834d5, []int{22}
+	return fileDescriptor_0a3532adaf4834d5, []int{24}
 }
 func (m *GrantRoleRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1343,7 +1413,7 @@ type GrantRoleResponse struct {
 func (m *GrantRoleResponse) Reset()      { *m = GrantRoleResponse{} }
 func (*GrantRoleResponse) ProtoMessage() {}
 func (*GrantRoleResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0a3532adaf4834d5, []int{23}
+	return fileDescriptor_0a3532adaf4834d5, []int{25}
 }
 func (m *GrantRoleResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1388,7 +1458,7 @@ type HasRoleRequest struct {
 func (m *HasRoleRequest) Reset()      { *m = HasRoleRequest{} }
 func (*HasRoleRequest) ProtoMessage() {}
 func (*HasRoleRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0a3532adaf4834d5, []int{24}
+	return fileDescriptor_0a3532adaf4834d5, []int{26}
 }
 func (m *HasRoleRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1445,7 +1515,7 @@ type HasRoleResponse struct {
 func (m *HasRoleResponse) Reset()      { *m = HasRoleResponse{} }
 func (*HasRoleResponse) ProtoMessage() {}
 func (*HasRoleResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0a3532adaf4834d5, []int{25}
+	return fileDescriptor_0a3532adaf4834d5, []int{27}
 }
 func (m *HasRoleResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1488,7 +1558,7 @@ type DeployFCRequest struct {
 func (m *DeployFCRequest) Reset()      { *m = DeployFCRequest{} }
 func (*DeployFCRequest) ProtoMessage() {}
 func (*DeployFCRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0a3532adaf4834d5, []int{26}
+	return fileDescriptor_0a3532adaf4834d5, []int{28}
 }
 func (m *DeployFCRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1532,7 +1602,7 @@ type DeployFCResponse struct {
 func (m *DeployFCResponse) Reset()      { *m = DeployFCResponse{} }
 func (*DeployFCResponse) ProtoMessage() {}
 func (*DeployFCResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0a3532adaf4834d5, []int{27}
+	return fileDescriptor_0a3532adaf4834d5, []int{29}
 }
 func (m *DeployFCResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1587,7 +1657,7 @@ type CreateContractsRequest struct {
 func (m *CreateContractsRequest) Reset()      { *m = CreateContractsRequest{} }
 func (*CreateContractsRequest) ProtoMessage() {}
 func (*CreateContractsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0a3532adaf4834d5, []int{28}
+	return fileDescriptor_0a3532adaf4834d5, []int{30}
 }
 func (m *CreateContractsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1667,7 +1737,7 @@ type CreateContractsResponse struct {
 func (m *CreateContractsResponse) Reset()      { *m = CreateContractsResponse{} }
 func (*CreateContractsResponse) ProtoMessage() {}
 func (*CreateContractsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0a3532adaf4834d5, []int{29}
+	return fileDescriptor_0a3532adaf4834d5, []int{31}
 }
 func (m *CreateContractsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -1733,12 +1803,14 @@ func init() {
 	proto.RegisterType((*TransferResponse)(nil), "angoya.stoserver.data.TransferResponse")
 	proto.RegisterType((*RegisterWalletRequest)(nil), "angoya.stoserver.data.RegisterWalletRequest")
 	proto.RegisterType((*RegisterWalletResponse)(nil), "angoya.stoserver.data.RegisterWalletResponse")
+	proto.RegisterType((*NameRequest)(nil), "angoya.stoserver.data.NameRequest")
+	proto.RegisterType((*NameResponse)(nil), "angoya.stoserver.data.NameResponse")
+	proto.RegisterType((*SymbolRequest)(nil), "angoya.stoserver.data.SymbolRequest")
+	proto.RegisterType((*SymbolResponse)(nil), "angoya.stoserver.data.SymbolResponse")
 	proto.RegisterType((*TotalSupplyRequest)(nil), "angoya.stoserver.data.TotalSupplyRequest")
 	proto.RegisterType((*TotalSupplyResponse)(nil), "angoya.stoserver.data.TotalSupplyResponse")
 	proto.RegisterType((*BalanceOfRequest)(nil), "angoya.stoserver.data.BalanceOfRequest")
 	proto.RegisterType((*BalanceOfResponse)(nil), "angoya.stoserver.data.BalanceOfResponse")
-	proto.RegisterType((*GetTokenRequest)(nil), "angoya.stoserver.data.GetTokenRequest")
-	proto.RegisterType((*GetTokenResponse)(nil), "angoya.stoserver.data.GetTokenResponse")
 	proto.RegisterType((*DeployCSRequest)(nil), "angoya.stoserver.data.DeployCSRequest")
 	proto.RegisterType((*DeployCSResponse)(nil), "angoya.stoserver.data.DeployCSResponse")
 	proto.RegisterType((*GrantRoleRequest)(nil), "angoya.stoserver.data.GrantRoleRequest")
@@ -1754,71 +1826,71 @@ func init() {
 func init() { proto.RegisterFile("security-token.proto", fileDescriptor_0a3532adaf4834d5) }
 
 var fileDescriptor_0a3532adaf4834d5 = []byte{
-	// 1022 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x57, 0x4b, 0x6f, 0xe4, 0x44,
-	0x10, 0x9e, 0xce, 0x4c, 0x66, 0x67, 0x2a, 0xf3, 0xe8, 0xed, 0x3c, 0x18, 0x16, 0xe4, 0x0d, 0x4e,
-	0x80, 0xf0, 0x48, 0x22, 0xc1, 0x15, 0x09, 0x39, 0x8e, 0xf3, 0x10, 0x43, 0x26, 0xd8, 0x5e, 0x45,
-	0xcb, 0xc5, 0xea, 0x38, 0xbd, 0x13, 0x6b, 0x3d, 0xf6, 0xe0, 0xee, 0x59, 0xc9, 0x37, 0xb8, 0x73,
-	0xe0, 0xc8, 0x1f, 0x40, 0xe2, 0x8e, 0xf8, 0x0f, 0x2b, 0x71, 0x59, 0x71, 0xda, 0x23, 0x9b, 0x5c,
-	0x39, 0xf0, 0x13, 0x90, 0x5f, 0x63, 0xcf, 0x32, 0x99, 0x4d, 0xd0, 0x06, 0x89, 0x5b, 0x57, 0x57,
-	0x75, 0xd5, 0xf7, 0x55, 0x55, 0x97, 0xdb, 0xb0, 0xc4, 0x99, 0x3d, 0x0a, 0x1c, 0x11, 0x6e, 0x0a,
-	0xff, 0x31, 0xf3, 0xb6, 0x86, 0x81, 0x2f, 0x7c, 0xb2, 0x4c, 0xbd, 0xbe, 0x1f, 0xd2, 0x2d, 0x2e,
-	0x7c, 0xce, 0x82, 0x27, 0x2c, 0xd8, 0x3a, 0xa3, 0x82, 0xde, 0x5b, 0xea, 0xfb, 0x7d, 0x3f, 0xb6,
-	0xd8, 0x8e, 0x56, 0x89, 0xb1, 0xdc, 0x87, 0x96, 0xc1, 0xbc, 0x33, 0xcd, 0x3c, 0xd0, 0xd9, 0x37,
-	0x23, 0xc6, 0x05, 0xb9, 0x0f, 0x0b, 0xc3, 0xc0, 0x79, 0x42, 0x05, 0xb3, 0x1e, 0xb3, 0xb0, 0x83,
-	0x56, 0xd1, 0x46, 0x5d, 0x87, 0x74, 0xeb, 0x0b, 0x16, 0x92, 0xb7, 0xa1, 0x1e, 0x30, 0xdb, 0x19,
-	0x3a, 0xcc, 0x13, 0x9d, 0xb9, 0x58, 0x9d, 0x6f, 0x90, 0x15, 0xa8, 0xd2, 0x81, 0x3f, 0xf2, 0x44,
-	0xa7, 0x1c, 0xab, 0x52, 0x49, 0x7e, 0x17, 0xda, 0xe3, 0x40, 0x7c, 0xe8, 0x7b, 0x9c, 0x11, 0x02,
-	0x95, 0x73, 0xca, 0xcf, 0xd3, 0x10, 0xf1, 0x5a, 0xde, 0x86, 0xc5, 0x1d, 0xea, 0x52, 0xcf, 0x66,
-	0xbd, 0x47, 0x05, 0x50, 0x1d, 0xb8, 0x43, 0x6d, 0x3b, 0x76, 0x9b, 0x58, 0x67, 0xa2, 0xbc, 0x05,
-	0x4b, 0x93, 0x07, 0x52, 0xe7, 0x39, 0x0e, 0x34, 0x81, 0xe3, 0x17, 0x04, 0xed, 0x5d, 0x36, 0x74,
-	0xfd, 0xd0, 0x30, 0xaf, 0x4d, 0x99, 0x40, 0xc5, 0xa3, 0x03, 0x96, 0xb2, 0x8d, 0xd7, 0x51, 0x00,
-	0x1e, 0x0e, 0x4e, 0x7d, 0x37, 0x23, 0x9a, 0x48, 0x64, 0x1d, 0x9a, 0x8e, 0xe7, 0x08, 0x87, 0xba,
-	0xc6, 0x68, 0x38, 0x74, 0xc3, 0x4e, 0x25, 0x56, 0x4f, 0x6e, 0x92, 0x4d, 0x20, 0xb6, 0x3f, 0x18,
-	0xba, 0x4e, 0x84, 0xdc, 0xa2, 0x67, 0x67, 0x01, 0xe3, 0xbc, 0x33, 0x1f, 0x9b, 0xde, 0xcd, 0x35,
-	0x4a, 0xa2, 0x90, 0xbf, 0x02, 0x9c, 0x83, 0xbe, 0x3a, 0x7d, 0xe4, 0x03, 0xc0, 0xb6, 0xef, 0x89,
-	0x80, 0xda, 0x62, 0xec, 0x34, 0x01, 0xdd, 0xce, 0xf6, 0x33, 0x97, 0x4f, 0x11, 0x34, 0x0e, 0x39,
-	0x1f, 0xb1, 0x6b, 0x67, 0xe1, 0xfa, 0xce, 0x27, 0x7b, 0xa4, 0x7c, 0x75, 0x8f, 0x54, 0x8a, 0xb5,
-	0x21, 0x6f, 0x42, 0xcd, 0xe1, 0x16, 0xe5, 0xa1, 0x67, 0xc7, 0xa9, 0xa8, 0xe9, 0x77, 0x1c, 0xae,
-	0x44, 0x22, 0x79, 0x0b, 0xea, 0x7d, 0xca, 0x2d, 0xd7, 0x19, 0x38, 0xa2, 0x53, 0x5d, 0x45, 0x1b,
-	0x15, 0xbd, 0xd6, 0xa7, 0xbc, 0x1b, 0xc9, 0xf2, 0x1a, 0x34, 0x53, 0x26, 0x33, 0x3a, 0xeb, 0x27,
-	0x04, 0x4d, 0x9d, 0x9d, 0x31, 0x36, 0xb8, 0x0d, 0xc2, 0x85, 0x06, 0x2d, 0x4f, 0x34, 0xe8, 0x95,
-	0x64, 0x57, 0xa0, 0x1a, 0x30, 0xca, 0x7d, 0x2f, 0xad, 0x7a, 0x2a, 0xc9, 0xeb, 0xd0, 0xca, 0x60,
-	0xce, 0x60, 0xf3, 0x1b, 0x82, 0xb6, 0x19, 0x50, 0x8f, 0x3f, 0x62, 0xc1, 0xff, 0xbf, 0x80, 0xef,
-	0x01, 0xce, 0xc9, 0xcc, 0x60, 0xfd, 0x2b, 0x82, 0x65, 0x9d, 0xf5, 0x1d, 0x2e, 0x58, 0x70, 0x42,
-	0x5d, 0x97, 0x89, 0xff, 0xb6, 0x96, 0x45, 0x7e, 0x95, 0x19, 0xfc, 0xe6, 0x5f, 0xe2, 0xf7, 0x31,
-	0xac, 0xbc, 0x0c, 0x7b, 0x06, 0xcb, 0xcf, 0x81, 0x98, 0xbe, 0xc8, 0x46, 0x45, 0xc6, 0x70, 0x1a,
-	0x01, 0x34, 0xfd, 0x6a, 0x6f, 0xc2, 0xe2, 0x84, 0x83, 0x57, 0x8c, 0xc4, 0x13, 0xc0, 0xe3, 0x11,
-	0x7a, 0xf3, 0x68, 0xc5, 0x74, 0xcd, 0x4d, 0xce, 0xe6, 0x8f, 0xe0, 0x6e, 0xc1, 0xf1, 0x2b, 0x50,
-	0x7c, 0x06, 0xed, 0x7d, 0x26, 0xcc, 0xe8, 0x43, 0xf6, 0x2f, 0x28, 0x53, 0xc0, 0xf9, 0xe9, 0x3c,
-	0xb7, 0xf1, 0xd4, 0x46, 0x53, 0xa7, 0xf6, 0xdc, 0xc4, 0xd4, 0x7e, 0x07, 0x1a, 0x22, 0x4a, 0x99,
-	0xc5, 0x93, 0xa1, 0x9d, 0x14, 0x7e, 0x41, 0xe4, 0x69, 0x94, 0x3f, 0xc9, 0x3e, 0x1c, 0xaa, 0x71,
-	0xdd, 0xae, 0xcb, 0xe7, 0x76, 0x74, 0xe6, 0xf5, 0xcc, 0xed, 0xef, 0x11, 0xe0, 0xfd, 0x80, 0x7a,
-	0x42, 0xf7, 0xdd, 0x5b, 0x99, 0xdd, 0x04, 0x2a, 0x81, 0xef, 0xb2, 0x34, 0x05, 0xf1, 0x3a, 0xaa,
-	0x71, 0x3f, 0x8a, 0xc9, 0x58, 0x7a, 0xe3, 0x33, 0x51, 0x7e, 0x1f, 0xee, 0x16, 0xd0, 0xcc, 0xe8,
-	0x6a, 0x07, 0x5a, 0x07, 0x94, 0x17, 0x41, 0xdf, 0xa0, 0xc7, 0x32, 0x4c, 0x73, 0x93, 0x98, 0xa6,
-	0x5f, 0x53, 0x79, 0x0d, 0xda, 0xe3, 0x50, 0x29, 0x22, 0x0c, 0xe5, 0x73, 0x9a, 0xb8, 0xaf, 0xe9,
-	0xd1, 0x32, 0x2f, 0xe7, 0x9e, 0x7a, 0xf3, 0x72, 0x46, 0x67, 0x5e, 0x4f, 0x39, 0x7f, 0x47, 0xb0,
-	0xa2, 0x06, 0x8c, 0x0a, 0xa6, 0xa6, 0x1a, 0x7e, 0x4b, 0x45, 0x8d, 0xef, 0x42, 0x79, 0xea, 0x5d,
-	0xa8, 0xcc, 0x7e, 0xc1, 0xcc, 0x4f, 0x7b, 0xc1, 0xdc, 0x83, 0x5a, 0xda, 0x03, 0xbc, 0x53, 0x5d,
-	0x2d, 0x6f, 0xd4, 0xf5, 0xb1, 0x2c, 0x7f, 0x87, 0xe0, 0x8d, 0x7f, 0x90, 0x9a, 0x91, 0xaf, 0xe9,
-	0xaf, 0xa1, 0xb9, 0x2b, 0x5e, 0x43, 0x64, 0x0d, 0x9a, 0xf1, 0x83, 0x77, 0x6c, 0x99, 0xb0, 0x6a,
-	0xc4, 0x9b, 0xa9, 0xd1, 0x87, 0x7f, 0x22, 0x58, 0x48, 0x33, 0x69, 0x86, 0x43, 0x46, 0x1a, 0x50,
-	0x33, 0xb4, 0xa3, 0x5d, 0x4b, 0x33, 0x0f, 0x70, 0x89, 0x10, 0x68, 0xed, 0x28, 0x5d, 0xe5, 0x48,
-	0xd5, 0xac, 0xde, 0x5e, 0xbc, 0x87, 0x48, 0x13, 0xea, 0xbb, 0xda, 0x71, 0xb7, 0xf7, 0xd0, 0x32,
-	0x4c, 0x0c, 0xa4, 0x0e, 0xf3, 0x87, 0x86, 0xf1, 0x40, 0xc3, 0x0b, 0x04, 0xa0, 0xaa, 0x6b, 0xbb,
-	0x9a, 0xf6, 0x25, 0x6e, 0x44, 0x7e, 0x4c, 0x5d, 0x39, 0x32, 0xf6, 0x34, 0x1d, 0x37, 0xc9, 0x22,
-	0xb4, 0x75, 0x6d, 0xff, 0xd0, 0x30, 0x35, 0xdd, 0x3a, 0x51, 0xba, 0x5d, 0xcd, 0xc4, 0x2d, 0x82,
-	0xa1, 0x61, 0xf6, 0x4c, 0xa5, 0x6b, 0x19, 0x0f, 0x8e, 0x8f, 0xbb, 0x0f, 0x71, 0x9b, 0xb4, 0x00,
-	0xf2, 0x70, 0x18, 0x17, 0x42, 0xa9, 0x06, 0x5e, 0x8a, 0xd4, 0xfb, 0xba, 0x72, 0x64, 0x5a, 0x7a,
-	0xaf, 0xab, 0xe1, 0xe5, 0x28, 0xc6, 0x81, 0x62, 0x24, 0xd2, 0x4a, 0xc1, 0x78, 0x4f, 0xc5, 0x12,
-	0x59, 0x02, 0xac, 0xea, 0x9a, 0x62, 0x6a, 0x96, 0xda, 0x3b, 0x32, 0x75, 0x45, 0x35, 0x0d, 0x7c,
-	0x7f, 0x47, 0x7f, 0xfe, 0x42, 0x2a, 0xfd, 0xf5, 0x42, 0x42, 0xdf, 0x5e, 0x48, 0xe8, 0xe7, 0x0b,
-	0x09, 0x3d, 0xbd, 0x90, 0xd0, 0xb3, 0x0b, 0x09, 0xfd, 0x71, 0x21, 0xa1, 0x1f, 0x2e, 0xa5, 0xd2,
-	0x8f, 0x97, 0x52, 0xe9, 0xd9, 0xa5, 0x54, 0x7a, 0x7e, 0x29, 0x95, 0xbe, 0x5e, 0xef, 0x3b, 0xe2,
-	0x7c, 0x74, 0xba, 0x65, 0xfb, 0x83, 0xed, 0xe8, 0x77, 0x61, 0x33, 0xa4, 0xdb, 0xf6, 0x39, 0x75,
-	0xbc, 0x4d, 0xdb, 0x8d, 0xbe, 0xf0, 0xdb, 0xd1, 0x2f, 0xc3, 0x69, 0x35, 0xfe, 0x47, 0xf8, 0xf4,
-	0xef, 0x00, 0x00, 0x00, 0xff, 0xff, 0x6d, 0x30, 0x06, 0xfe, 0x68, 0x0c, 0x00, 0x00,
+	// 1024 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x57, 0x4b, 0x6f, 0xdb, 0x46,
+	0x10, 0xd6, 0x5a, 0xb2, 0x22, 0x8d, 0xf5, 0x58, 0xaf, 0x1f, 0x55, 0xd3, 0x82, 0x31, 0x68, 0xb7,
+	0x75, 0x1f, 0xb6, 0x80, 0xf6, 0x52, 0xf4, 0x52, 0xd0, 0x34, 0xfd, 0x40, 0x55, 0xc9, 0x25, 0x19,
+	0x18, 0xe9, 0x85, 0x58, 0x53, 0x1b, 0x89, 0x08, 0x45, 0xaa, 0x5c, 0x2a, 0x00, 0x6f, 0xed, 0xbd,
+	0x87, 0x1e, 0xfb, 0x07, 0x0a, 0xf4, 0x5e, 0xf4, 0x3f, 0x04, 0xe8, 0x25, 0xe8, 0x29, 0xc7, 0x46,
+	0xbe, 0xf6, 0xd0, 0x9f, 0x50, 0x90, 0x22, 0x45, 0x2a, 0x95, 0x15, 0x3b, 0x88, 0x0b, 0xe4, 0xb6,
+	0xb3, 0x33, 0x3b, 0xf3, 0x7d, 0x3b, 0xb3, 0xc3, 0x21, 0xac, 0x73, 0x66, 0x8e, 0x3c, 0xcb, 0x0f,
+	0xf6, 0x7c, 0xf7, 0x11, 0x73, 0xf6, 0x87, 0x9e, 0xeb, 0xbb, 0x64, 0x83, 0x3a, 0x3d, 0x37, 0xa0,
+	0xfb, 0xdc, 0x77, 0x39, 0xf3, 0x1e, 0x33, 0x6f, 0xbf, 0x4b, 0x7d, 0x7a, 0x77, 0xbd, 0xe7, 0xf6,
+	0xdc, 0xc8, 0xa2, 0x19, 0xae, 0x26, 0xc6, 0x62, 0x0f, 0x6a, 0x1a, 0x73, 0xba, 0x8a, 0x7e, 0xa2,
+	0xb2, 0xef, 0x46, 0x8c, 0xfb, 0xe4, 0x1e, 0xac, 0x0c, 0x3d, 0xeb, 0x31, 0xf5, 0x99, 0xf1, 0x88,
+	0x05, 0x0d, 0xb4, 0x85, 0x76, 0xcb, 0x2a, 0xc4, 0x5b, 0x5f, 0xb1, 0x80, 0xbc, 0x0b, 0x65, 0x8f,
+	0x99, 0xd6, 0xd0, 0x62, 0x8e, 0xdf, 0x58, 0x8a, 0xd4, 0xe9, 0x06, 0xd9, 0x84, 0x22, 0x1d, 0xb8,
+	0x23, 0xc7, 0x6f, 0xe4, 0x23, 0x55, 0x2c, 0x89, 0xef, 0x41, 0x7d, 0x1a, 0x88, 0x0f, 0x5d, 0x87,
+	0x33, 0x42, 0xa0, 0xd0, 0xa7, 0xbc, 0x1f, 0x87, 0x88, 0xd6, 0x62, 0x13, 0xd6, 0x0e, 0xa8, 0x4d,
+	0x1d, 0x93, 0x75, 0x1e, 0x66, 0x40, 0x35, 0xe0, 0x0e, 0x35, 0xcd, 0xc8, 0xed, 0xc4, 0x3a, 0x11,
+	0xc5, 0x7d, 0x58, 0x9f, 0x3d, 0x10, 0x3b, 0x4f, 0x71, 0xa0, 0x19, 0x1c, 0xbf, 0x21, 0xa8, 0x1f,
+	0xb2, 0xa1, 0xed, 0x06, 0x9a, 0x7e, 0x6d, 0xca, 0x04, 0x0a, 0x0e, 0x1d, 0xb0, 0x98, 0x6d, 0xb4,
+	0x0e, 0x03, 0xf0, 0x60, 0x70, 0xe1, 0xda, 0x09, 0xd1, 0x89, 0x44, 0x76, 0xa0, 0x6a, 0x39, 0x96,
+	0x6f, 0x51, 0x5b, 0x1b, 0x0d, 0x87, 0x76, 0xd0, 0x28, 0x44, 0xea, 0xd9, 0x4d, 0xb2, 0x07, 0xc4,
+	0x74, 0x07, 0x43, 0xdb, 0x0a, 0x91, 0x1b, 0xb4, 0xdb, 0xf5, 0x18, 0xe7, 0x8d, 0xe5, 0xc8, 0x74,
+	0x35, 0xd5, 0x48, 0x13, 0x85, 0xf8, 0x0d, 0xe0, 0x14, 0xf4, 0xd5, 0xd7, 0x47, 0x3e, 0x04, 0x6c,
+	0xba, 0x8e, 0xef, 0x51, 0xd3, 0x9f, 0x3a, 0x9d, 0x80, 0xae, 0x27, 0xfb, 0x89, 0xcb, 0x27, 0x08,
+	0x2a, 0xa7, 0x9c, 0x8f, 0xd8, 0xb5, 0x6f, 0xe1, 0xfa, 0xce, 0x67, 0x6b, 0x24, 0x7f, 0x75, 0x8d,
+	0x14, 0xb2, 0xb9, 0x21, 0x6f, 0x43, 0xc9, 0xe2, 0x06, 0xe5, 0x81, 0x63, 0x46, 0x57, 0x51, 0x52,
+	0xef, 0x58, 0x5c, 0x0a, 0x45, 0xf2, 0x0e, 0x94, 0x7b, 0x94, 0x1b, 0xb6, 0x35, 0xb0, 0xfc, 0x46,
+	0x71, 0x0b, 0xed, 0x16, 0xd4, 0x52, 0x8f, 0xf2, 0x56, 0x28, 0x8b, 0xdb, 0x50, 0x8d, 0x99, 0x2c,
+	0xa8, 0xac, 0x5f, 0x10, 0x54, 0x55, 0xd6, 0x65, 0x6c, 0x70, 0x1b, 0x84, 0x33, 0x05, 0x9a, 0x9f,
+	0x29, 0xd0, 0x2b, 0xc9, 0x6e, 0x42, 0xd1, 0x63, 0x94, 0xbb, 0x4e, 0x9c, 0xf5, 0x58, 0x12, 0x77,
+	0xa0, 0x96, 0xc0, 0x5c, 0xc0, 0xe6, 0x0f, 0x04, 0x75, 0xdd, 0xa3, 0x0e, 0x7f, 0xc8, 0xbc, 0x37,
+	0x3f, 0x81, 0xef, 0x03, 0x4e, 0xc9, 0x2c, 0x60, 0xfd, 0x3b, 0x82, 0x0d, 0x95, 0xf5, 0x2c, 0xee,
+	0x33, 0xef, 0x9c, 0xda, 0x36, 0xf3, 0xff, 0xdf, 0x5c, 0x66, 0xf9, 0x15, 0x16, 0xf0, 0x5b, 0x7e,
+	0x81, 0xdf, 0x27, 0xb0, 0xf9, 0x22, 0xec, 0x05, 0x2c, 0x3f, 0x87, 0x95, 0x36, 0x1d, 0x4c, 0xdf,
+	0xe5, 0x3c, 0xe4, 0x68, 0xfe, 0x9b, 0x16, 0xa1, 0x32, 0x39, 0x99, 0x7a, 0x8f, 0xfa, 0x16, 0x4a,
+	0xfb, 0x96, 0xf8, 0x05, 0x54, 0xb5, 0xa8, 0x53, 0xbd, 0x82, 0xff, 0x5d, 0xa8, 0x25, 0x67, 0xd3,
+	0x36, 0x1b, 0x77, 0x41, 0x94, 0xed, 0x82, 0xe2, 0x97, 0x40, 0x74, 0xd7, 0x4f, 0xda, 0xdd, 0x2b,
+	0x84, 0xda, 0x83, 0xb5, 0x19, 0x07, 0x2f, 0x69, 0xeb, 0xe7, 0x80, 0xa7, 0x9f, 0x81, 0x9b, 0x47,
+	0xcb, 0xa6, 0x7c, 0x69, 0xf6, 0xfb, 0xf2, 0x31, 0xac, 0x66, 0x1c, 0xbf, 0x04, 0xc5, 0xa7, 0xc9,
+	0xb7, 0x45, 0xd6, 0xae, 0x5b, 0x98, 0x69, 0x6b, 0x0f, 0xcf, 0xbc, 0x9e, 0xd6, 0xfe, 0x23, 0x02,
+	0x7c, 0xec, 0x51, 0xc7, 0x57, 0x5d, 0xfb, 0x56, 0xda, 0x3b, 0x81, 0x82, 0xe7, 0xda, 0x2c, 0x7e,
+	0x1e, 0xd1, 0x3a, 0xbc, 0xc2, 0x5e, 0x18, 0x93, 0xb1, 0xb8, 0x29, 0x24, 0xa2, 0xf8, 0x01, 0xac,
+	0x66, 0xd0, 0x2c, 0x28, 0x7c, 0x0b, 0x6a, 0x27, 0x94, 0x67, 0x41, 0xdf, 0x20, 0x85, 0x09, 0xa6,
+	0xa5, 0x59, 0x4c, 0xf3, 0x5f, 0xb2, 0xb8, 0x0d, 0xf5, 0x69, 0xa8, 0x18, 0x11, 0x86, 0x7c, 0x9f,
+	0x4e, 0xdc, 0x97, 0xd4, 0x70, 0x99, 0xa6, 0xf3, 0x48, 0xbe, 0x79, 0x3a, 0xc3, 0x33, 0xaf, 0x27,
+	0x9d, 0x7f, 0x22, 0xd8, 0x94, 0x3d, 0x46, 0x7d, 0x26, 0xc7, 0x1a, 0x7e, 0x4b, 0x49, 0x8d, 0x9a,
+	0x45, 0x7e, 0xee, 0x90, 0x53, 0x58, 0x3c, 0xe4, 0x2c, 0xcf, 0x1b, 0x72, 0xee, 0x42, 0x29, 0xae,
+	0x01, 0xde, 0x28, 0x6e, 0xe5, 0x77, 0xcb, 0xea, 0x54, 0x16, 0x7f, 0x40, 0xf0, 0xd6, 0x7f, 0x48,
+	0x2d, 0xb8, 0xaf, 0xf9, 0x03, 0xd3, 0xd2, 0x15, 0x03, 0x13, 0xd9, 0x86, 0x6a, 0x34, 0x13, 0x4f,
+	0x2d, 0x27, 0xac, 0x2a, 0xd1, 0x66, 0x6c, 0xf4, 0xd1, 0xdf, 0x08, 0x56, 0xe2, 0x9b, 0xd4, 0x83,
+	0x21, 0x23, 0x15, 0x28, 0x69, 0x4a, 0xfb, 0xd0, 0x50, 0xf4, 0x13, 0x9c, 0x23, 0x04, 0x6a, 0x07,
+	0x52, 0x4b, 0x6a, 0xcb, 0x8a, 0xd1, 0x39, 0x8a, 0xf6, 0x10, 0xa9, 0x42, 0xf9, 0x50, 0x39, 0x6b,
+	0x75, 0x1e, 0x18, 0x9a, 0x8e, 0x81, 0x94, 0x61, 0xf9, 0x54, 0xd3, 0xee, 0x2b, 0x78, 0x85, 0x00,
+	0x14, 0x55, 0xe5, 0x50, 0x51, 0xbe, 0xc6, 0x95, 0xd0, 0x8f, 0xae, 0x4a, 0x6d, 0xed, 0x48, 0x51,
+	0x71, 0x95, 0xac, 0x41, 0x5d, 0x55, 0x8e, 0x4f, 0x35, 0x5d, 0x51, 0x8d, 0x73, 0xa9, 0xd5, 0x52,
+	0x74, 0x5c, 0x23, 0x18, 0x2a, 0x7a, 0x47, 0x97, 0x5a, 0x86, 0x76, 0xff, 0xec, 0xac, 0xf5, 0x00,
+	0xd7, 0x49, 0x0d, 0x20, 0x0d, 0x87, 0x71, 0x26, 0x94, 0xac, 0xe1, 0xf5, 0x50, 0x7d, 0xac, 0x4a,
+	0x6d, 0xdd, 0x50, 0x3b, 0x2d, 0x05, 0x6f, 0x84, 0x31, 0x4e, 0x24, 0x6d, 0x22, 0x6d, 0x66, 0x8c,
+	0x8f, 0x64, 0x2c, 0x90, 0x75, 0xc0, 0xb2, 0xaa, 0x48, 0xba, 0x62, 0xc8, 0x9d, 0xb6, 0xae, 0x4a,
+	0xb2, 0xae, 0xe1, 0x7b, 0x07, 0xea, 0xb3, 0xe7, 0x42, 0xee, 0x9f, 0xe7, 0x02, 0xfa, 0x7e, 0x2c,
+	0xa0, 0x5f, 0xc7, 0x02, 0x7a, 0x32, 0x16, 0xd0, 0xd3, 0xb1, 0x80, 0xfe, 0x1a, 0x0b, 0xe8, 0xa7,
+	0x4b, 0x21, 0xf7, 0xf3, 0xa5, 0x90, 0x7b, 0x7a, 0x29, 0xe4, 0x9e, 0x5d, 0x0a, 0xb9, 0x6f, 0x77,
+	0x7a, 0x96, 0xdf, 0x1f, 0x5d, 0xec, 0x9b, 0xee, 0xa0, 0x19, 0xfe, 0x51, 0xec, 0x05, 0xb4, 0x69,
+	0xf6, 0xa9, 0xe5, 0xec, 0x99, 0x76, 0x38, 0x04, 0x34, 0xc3, 0xbf, 0x8a, 0x8b, 0x62, 0xf4, 0x1b,
+	0xf1, 0xd9, 0xbf, 0x01, 0x00, 0x00, 0xff, 0xff, 0xa2, 0xdf, 0x49, 0x7e, 0x8b, 0x0c, 0x00, 0x00,
 }
 
 func (this *SendETHRequest) Equal(that interface{}) bool {
@@ -2232,6 +2304,102 @@ func (this *RegisterWalletResponse) Equal(that interface{}) bool {
 	}
 	return true
 }
+func (this *NameRequest) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*NameRequest)
+	if !ok {
+		that2, ok := that.(NameRequest)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.ContractAddress != that1.ContractAddress {
+		return false
+	}
+	return true
+}
+func (this *NameResponse) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*NameResponse)
+	if !ok {
+		that2, ok := that.(NameResponse)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.Name != that1.Name {
+		return false
+	}
+	return true
+}
+func (this *SymbolRequest) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*SymbolRequest)
+	if !ok {
+		that2, ok := that.(SymbolRequest)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.ContractAddress != that1.ContractAddress {
+		return false
+	}
+	return true
+}
+func (this *SymbolResponse) Equal(that interface{}) bool {
+	if that == nil {
+		return this == nil
+	}
+
+	that1, ok := that.(*SymbolResponse)
+	if !ok {
+		that2, ok := that.(SymbolResponse)
+		if ok {
+			that1 = &that2
+		} else {
+			return false
+		}
+	}
+	if that1 == nil {
+		return this == nil
+	} else if this == nil {
+		return false
+	}
+	if this.Symbol != that1.Symbol {
+		return false
+	}
+	return true
+}
 func (this *TotalSupplyRequest) Equal(that interface{}) bool {
 	if that == nil {
 		return this == nil
@@ -2327,60 +2495,6 @@ func (this *BalanceOfResponse) Equal(that interface{}) bool {
 		return false
 	}
 	if this.Amount != that1.Amount {
-		return false
-	}
-	return true
-}
-func (this *GetTokenRequest) Equal(that interface{}) bool {
-	if that == nil {
-		return this == nil
-	}
-
-	that1, ok := that.(*GetTokenRequest)
-	if !ok {
-		that2, ok := that.(GetTokenRequest)
-		if ok {
-			that1 = &that2
-		} else {
-			return false
-		}
-	}
-	if that1 == nil {
-		return this == nil
-	} else if this == nil {
-		return false
-	}
-	if this.ContractAddress != that1.ContractAddress {
-		return false
-	}
-	return true
-}
-func (this *GetTokenResponse) Equal(that interface{}) bool {
-	if that == nil {
-		return this == nil
-	}
-
-	that1, ok := that.(*GetTokenResponse)
-	if !ok {
-		that2, ok := that.(GetTokenResponse)
-		if ok {
-			that1 = &that2
-		} else {
-			return false
-		}
-	}
-	if that1 == nil {
-		return this == nil
-	} else if this == nil {
-		return false
-	}
-	if this.Name != that1.Name {
-		return false
-	}
-	if this.Symbol != that1.Symbol {
-		return false
-	}
-	if this.TotalSupply != that1.TotalSupply {
 		return false
 	}
 	return true
@@ -2837,6 +2951,46 @@ func (this *RegisterWalletResponse) GoString() string {
 	s = append(s, "}")
 	return strings.Join(s, "")
 }
+func (this *NameRequest) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 5)
+	s = append(s, "&data.NameRequest{")
+	s = append(s, "ContractAddress: "+fmt.Sprintf("%#v", this.ContractAddress)+",\n")
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *NameResponse) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 5)
+	s = append(s, "&data.NameResponse{")
+	s = append(s, "Name: "+fmt.Sprintf("%#v", this.Name)+",\n")
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *SymbolRequest) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 5)
+	s = append(s, "&data.SymbolRequest{")
+	s = append(s, "ContractAddress: "+fmt.Sprintf("%#v", this.ContractAddress)+",\n")
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
+func (this *SymbolResponse) GoString() string {
+	if this == nil {
+		return "nil"
+	}
+	s := make([]string, 0, 5)
+	s = append(s, "&data.SymbolResponse{")
+	s = append(s, "Symbol: "+fmt.Sprintf("%#v", this.Symbol)+",\n")
+	s = append(s, "}")
+	return strings.Join(s, "")
+}
 func (this *TotalSupplyRequest) GoString() string {
 	if this == nil {
 		return "nil"
@@ -2875,28 +3029,6 @@ func (this *BalanceOfResponse) GoString() string {
 	s := make([]string, 0, 5)
 	s = append(s, "&data.BalanceOfResponse{")
 	s = append(s, "Amount: "+fmt.Sprintf("%#v", this.Amount)+",\n")
-	s = append(s, "}")
-	return strings.Join(s, "")
-}
-func (this *GetTokenRequest) GoString() string {
-	if this == nil {
-		return "nil"
-	}
-	s := make([]string, 0, 5)
-	s = append(s, "&data.GetTokenRequest{")
-	s = append(s, "ContractAddress: "+fmt.Sprintf("%#v", this.ContractAddress)+",\n")
-	s = append(s, "}")
-	return strings.Join(s, "")
-}
-func (this *GetTokenResponse) GoString() string {
-	if this == nil {
-		return "nil"
-	}
-	s := make([]string, 0, 7)
-	s = append(s, "&data.GetTokenResponse{")
-	s = append(s, "Name: "+fmt.Sprintf("%#v", this.Name)+",\n")
-	s = append(s, "Symbol: "+fmt.Sprintf("%#v", this.Symbol)+",\n")
-	s = append(s, "TotalSupply: "+fmt.Sprintf("%#v", this.TotalSupply)+",\n")
 	s = append(s, "}")
 	return strings.Join(s, "")
 }
@@ -3620,6 +3752,126 @@ func (m *RegisterWalletResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 	return len(dAtA) - i, nil
 }
 
+func (m *NameRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *NameRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *NameRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ContractAddress) > 0 {
+		i -= len(m.ContractAddress)
+		copy(dAtA[i:], m.ContractAddress)
+		i = encodeVarintSecurityToken(dAtA, i, uint64(len(m.ContractAddress)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *NameResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *NameResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *NameResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Name) > 0 {
+		i -= len(m.Name)
+		copy(dAtA[i:], m.Name)
+		i = encodeVarintSecurityToken(dAtA, i, uint64(len(m.Name)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *SymbolRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *SymbolRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *SymbolRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ContractAddress) > 0 {
+		i -= len(m.ContractAddress)
+		copy(dAtA[i:], m.ContractAddress)
+		i = encodeVarintSecurityToken(dAtA, i, uint64(len(m.ContractAddress)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *SymbolResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *SymbolResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *SymbolResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Symbol) > 0 {
+		i -= len(m.Symbol)
+		copy(dAtA[i:], m.Symbol)
+		i = encodeVarintSecurityToken(dAtA, i, uint64(len(m.Symbol)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
 func (m *TotalSupplyRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -3741,80 +3993,6 @@ func (m *BalanceOfResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i -= len(m.Amount)
 		copy(dAtA[i:], m.Amount)
 		i = encodeVarintSecurityToken(dAtA, i, uint64(len(m.Amount)))
-		i--
-		dAtA[i] = 0xa
-	}
-	return len(dAtA) - i, nil
-}
-
-func (m *GetTokenRequest) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *GetTokenRequest) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *GetTokenRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if len(m.ContractAddress) > 0 {
-		i -= len(m.ContractAddress)
-		copy(dAtA[i:], m.ContractAddress)
-		i = encodeVarintSecurityToken(dAtA, i, uint64(len(m.ContractAddress)))
-		i--
-		dAtA[i] = 0xa
-	}
-	return len(dAtA) - i, nil
-}
-
-func (m *GetTokenResponse) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *GetTokenResponse) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *GetTokenResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if len(m.TotalSupply) > 0 {
-		i -= len(m.TotalSupply)
-		copy(dAtA[i:], m.TotalSupply)
-		i = encodeVarintSecurityToken(dAtA, i, uint64(len(m.TotalSupply)))
-		i--
-		dAtA[i] = 0x1a
-	}
-	if len(m.Symbol) > 0 {
-		i -= len(m.Symbol)
-		copy(dAtA[i:], m.Symbol)
-		i = encodeVarintSecurityToken(dAtA, i, uint64(len(m.Symbol)))
-		i--
-		dAtA[i] = 0x12
-	}
-	if len(m.Name) > 0 {
-		i -= len(m.Name)
-		copy(dAtA[i:], m.Name)
-		i = encodeVarintSecurityToken(dAtA, i, uint64(len(m.Name)))
 		i--
 		dAtA[i] = 0xa
 	}
@@ -4511,6 +4689,58 @@ func (m *RegisterWalletResponse) Size() (n int) {
 	return n
 }
 
+func (m *NameRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.ContractAddress)
+	if l > 0 {
+		n += 1 + l + sovSecurityToken(uint64(l))
+	}
+	return n
+}
+
+func (m *NameResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Name)
+	if l > 0 {
+		n += 1 + l + sovSecurityToken(uint64(l))
+	}
+	return n
+}
+
+func (m *SymbolRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.ContractAddress)
+	if l > 0 {
+		n += 1 + l + sovSecurityToken(uint64(l))
+	}
+	return n
+}
+
+func (m *SymbolResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Symbol)
+	if l > 0 {
+		n += 1 + l + sovSecurityToken(uint64(l))
+	}
+	return n
+}
+
 func (m *TotalSupplyRequest) Size() (n int) {
 	if m == nil {
 		return 0
@@ -4561,40 +4791,6 @@ func (m *BalanceOfResponse) Size() (n int) {
 	var l int
 	_ = l
 	l = len(m.Amount)
-	if l > 0 {
-		n += 1 + l + sovSecurityToken(uint64(l))
-	}
-	return n
-}
-
-func (m *GetTokenRequest) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	l = len(m.ContractAddress)
-	if l > 0 {
-		n += 1 + l + sovSecurityToken(uint64(l))
-	}
-	return n
-}
-
-func (m *GetTokenResponse) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	l = len(m.Name)
-	if l > 0 {
-		n += 1 + l + sovSecurityToken(uint64(l))
-	}
-	l = len(m.Symbol)
-	if l > 0 {
-		n += 1 + l + sovSecurityToken(uint64(l))
-	}
-	l = len(m.TotalSupply)
 	if l > 0 {
 		n += 1 + l + sovSecurityToken(uint64(l))
 	}
@@ -4959,6 +5155,46 @@ func (this *RegisterWalletResponse) String() string {
 	}, "")
 	return s
 }
+func (this *NameRequest) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&NameRequest{`,
+		`ContractAddress:` + fmt.Sprintf("%v", this.ContractAddress) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *NameResponse) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&NameResponse{`,
+		`Name:` + fmt.Sprintf("%v", this.Name) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *SymbolRequest) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&SymbolRequest{`,
+		`ContractAddress:` + fmt.Sprintf("%v", this.ContractAddress) + `,`,
+		`}`,
+	}, "")
+	return s
+}
+func (this *SymbolResponse) String() string {
+	if this == nil {
+		return "nil"
+	}
+	s := strings.Join([]string{`&SymbolResponse{`,
+		`Symbol:` + fmt.Sprintf("%v", this.Symbol) + `,`,
+		`}`,
+	}, "")
+	return s
+}
 func (this *TotalSupplyRequest) String() string {
 	if this == nil {
 		return "nil"
@@ -4996,28 +5232,6 @@ func (this *BalanceOfResponse) String() string {
 	}
 	s := strings.Join([]string{`&BalanceOfResponse{`,
 		`Amount:` + fmt.Sprintf("%v", this.Amount) + `,`,
-		`}`,
-	}, "")
-	return s
-}
-func (this *GetTokenRequest) String() string {
-	if this == nil {
-		return "nil"
-	}
-	s := strings.Join([]string{`&GetTokenRequest{`,
-		`ContractAddress:` + fmt.Sprintf("%v", this.ContractAddress) + `,`,
-		`}`,
-	}, "")
-	return s
-}
-func (this *GetTokenResponse) String() string {
-	if this == nil {
-		return "nil"
-	}
-	s := strings.Join([]string{`&GetTokenResponse{`,
-		`Name:` + fmt.Sprintf("%v", this.Name) + `,`,
-		`Symbol:` + fmt.Sprintf("%v", this.Symbol) + `,`,
-		`TotalSupply:` + fmt.Sprintf("%v", this.TotalSupply) + `,`,
 		`}`,
 	}, "")
 	return s
@@ -7017,6 +7231,334 @@ func (m *RegisterWalletResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+func (m *NameRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowSecurityToken
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: NameRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: NameRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContractAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurityToken
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurityToken
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurityToken
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ContractAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipSecurityToken(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthSecurityToken
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *NameResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowSecurityToken
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: NameResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: NameResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurityToken
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurityToken
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurityToken
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Name = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipSecurityToken(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthSecurityToken
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *SymbolRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowSecurityToken
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: SymbolRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: SymbolRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContractAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurityToken
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurityToken
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurityToken
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ContractAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipSecurityToken(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthSecurityToken
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *SymbolResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowSecurityToken
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: SymbolResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: SymbolResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Symbol", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowSecurityToken
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthSecurityToken
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthSecurityToken
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Symbol = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipSecurityToken(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthSecurityToken
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
 func (m *TotalSupplyRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -7355,234 +7897,6 @@ func (m *BalanceOfResponse) Unmarshal(dAtA []byte) error {
 				return io.ErrUnexpectedEOF
 			}
 			m.Amount = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipSecurityToken(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthSecurityToken
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *GetTokenRequest) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowSecurityToken
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: GetTokenRequest: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: GetTokenRequest: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ContractAddress", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowSecurityToken
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthSecurityToken
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthSecurityToken
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.ContractAddress = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipSecurityToken(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthSecurityToken
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *GetTokenResponse) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowSecurityToken
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: GetTokenResponse: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: GetTokenResponse: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowSecurityToken
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthSecurityToken
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthSecurityToken
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Name = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Symbol", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowSecurityToken
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthSecurityToken
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthSecurityToken
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Symbol = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 3:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field TotalSupply", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowSecurityToken
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthSecurityToken
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthSecurityToken
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.TotalSupply = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

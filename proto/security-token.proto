@@ -124,6 +124,22 @@ message RegisterWalletResponse {
   string hash = 1;
 }
 
+message NameRequest {
+  string contract_address = 1;
+}
+
+message NameResponse {
+  string name = 1;
+}
+
+message SymbolRequest {
+  string contract_address = 1;
+}
+
+message SymbolResponse {
+  string symbol = 1;
+}
+
 message TotalSupplyRequest {
   string contract_address = 1;
 }
@@ -139,16 +155,6 @@ message BalanceOfRequest {
 
 message BalanceOfResponse {
   string amount = 1;
-}
-
-message GetTokenRequest {
-  string contract_address = 1;
-}
-
-message GetTokenResponse {
-  string name         = 1;
-  string symbol       = 2;
-  string total_supply = 3;
 }
 
 // ***** compliance *****

@@ -313,6 +313,48 @@ func (c *BlockchainClient) GrantRole(ctx context.Context, req data.GrantRoleRequ
 	return
 }
 
+func (c *BlockchainClient) NameSecurityToken(ctx context.Context, req data.NameRequest) (resp data.NameResponse, err error) {
+	var (
+		contractAddress = common.HexToAddress(req.GetContractAddress())
+		input, _        = c.stABI.Pack("name", []interface{}{}...)
+	)
+	output, err := c.ethclient.QueryContract(ctx, contractAddress, input)
+	if err != nil {
+		err = errors.Wrapf(err, "failed to query contract(=%s), input(=%v)", contractAddress.String(), input)
+		return
+	}
+
+	var (
+		results, _ = c.stABI.Unpack("name", output)
+		name       = *abi.ConvertType(results[0], new(string)).(*string)
+	)
+	resp = data.NameResponse{
+		Name: name,
+	}
+	return
+}
+
+func (c *BlockchainClient) SymbolSecurityToken(ctx context.Context, req data.SymbolRequest) (resp data.SymbolResponse, err error) {
+	var (
+		contractAddress = common.HexToAddress(req.GetContractAddress())
+		input, _        = c.stABI.Pack("symbol", []interface{}{}...)
+	)
+	output, err := c.ethclient.QueryContract(ctx, contractAddress, input)
+	if err != nil {
+		err = errors.Wrapf(err, "failed to query contract(=%s), input(=%v)", contractAddress.String(), input)
+		return
+	}
+
+	var (
+		results, _ = c.stABI.Unpack("symbol", output)
+		symbol     = *abi.ConvertType(results[0], new(string)).(*string)
+	)
+	resp = data.SymbolResponse{
+		Symbol: symbol,
+	}
+	return
+}
+
 func (c *BlockchainClient) TotalSupplySecurityToken(ctx context.Context, req data.TotalSupplyRequest) (resp data.TotalSupplyResponse, err error) {
 	var (
 		contractAddress = common.HexToAddress(req.GetContractAddress())
