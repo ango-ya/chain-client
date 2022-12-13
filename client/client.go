@@ -88,14 +88,14 @@ func (c *BlockchainClient) Close() {
 }
 
 func (c *BlockchainClient) SendETH(ctx context.Context, req data.SendETHRequest) (resp data.SendETHResponse, err error) {
-	amount, err := data.ToWei(req.GetAmount(), 18)
-	if err != nil {
-		err = errors.Wrapf(err, "invalid amount(=%v)", req.GetAmount())
+	if err = req.Validate(); err != nil {
+		err = errors.Wrap(err, "at Validate")
 		return
 	}
 
 	var (
 		recipient = common.HexToAddress(req.GetRecipient())
+		amount, _ = data.ToWei(req.GetAmount(), 18)
 	)
 	hash, err := c.ethclient.SyncSend(ctx, req.GetPrivateKey(), &recipient, amount, nil, 0)
 	if err != nil {
@@ -112,6 +112,11 @@ func (c *BlockchainClient) SendETH(ctx context.Context, req data.SendETHRequest)
 }
 
 func (c *BlockchainClient) BalanceOfETH(ctx context.Context, req data.BalanceOfETHRequest) (resp data.BalanceOfETHResponse, err error) {
+	if err = req.Validate(); err != nil {
+		err = errors.Wrap(err, "at Validate")
+		return
+	}
+
 	var (
 		account = common.HexToAddress(req.GetAccount())
 	)
@@ -128,13 +133,13 @@ func (c *BlockchainClient) BalanceOfETH(ctx context.Context, req data.BalanceOfE
 }
 
 func (c *BlockchainClient) DeploySecurityToken(ctx context.Context, req data.DeploySTRequest) (resp data.DeploySTResponse, err error) {
-	initalSupply, err := data.ToWei(req.GetInitialSupply(), 18)
-	if err != nil {
-		err = errors.Wrapf(err, "invalid inital supply(=%v)", req.GetInitialSupply())
+	if err = req.Validate(); err != nil {
+		err = errors.Wrap(err, "at Validate")
 		return
 	}
 
 	var (
+		initalSupply, _   = data.ToWei(req.GetInitialSupply(), 18)
 		complianceAddress = common.HexToAddress(req.GetComplianceAddress())
 		input, _          = c.stABI.Pack("", []interface{}{req.GetName(), req.GetSymbol(), initalSupply, complianceAddress}...)
 		bytecode          = common.FromHex(contract.SecurityTokenBin)
@@ -186,13 +191,13 @@ func (c *BlockchainClient) DeployComplianceService(ctx context.Context, req data
 }
 
 func (c *BlockchainClient) IssueSecurityToken(ctx context.Context, req data.IssueRequest) (resp data.IssueResponse, err error) {
-	amount, err := data.ToWei(req.GetAmount(), 18)
-	if err != nil {
-		err = errors.Wrapf(err, "invalid amount(=%v)", req.GetAmount())
+	if err = req.Validate(); err != nil {
+		err = errors.Wrap(err, "at Validate")
 		return
 	}
 
 	var (
+		amount, _       = data.ToWei(req.GetAmount(), 18)
 		contractAddress = common.HexToAddress(req.GetContractAddress())
 		recipient       = common.HexToAddress(req.GetRecipient())
 		input, _        = c.stABI.Pack("issue", []interface{}{recipient, amount}...)
@@ -212,13 +217,13 @@ func (c *BlockchainClient) IssueSecurityToken(ctx context.Context, req data.Issu
 }
 
 func (c *BlockchainClient) TransferSecurityToken(ctx context.Context, req data.TransferRequest) (resp data.TransferResponse, err error) {
-	amount, err := data.ToWei(req.GetAmount(), 18)
-	if err != nil {
-		err = errors.Wrapf(err, "invalid amount(=%v)", req.GetAmount())
+	if err = req.Validate(); err != nil {
+		err = errors.Wrap(err, "at Validate")
 		return
 	}
 
 	var (
+		amount, _       = data.ToWei(req.GetAmount(), 18)
 		contractAddress = common.HexToAddress(req.GetContractAddress())
 		recipient       = common.HexToAddress(req.GetRecipient())
 		input, _        = c.stABI.Pack("transfer", []interface{}{recipient, amount}...)
@@ -239,13 +244,13 @@ func (c *BlockchainClient) TransferSecurityToken(ctx context.Context, req data.T
 }
 
 func (c *BlockchainClient) BurnSecurityToken(ctx context.Context, req data.RedeemRequest) (resp data.RedeemResponse, err error) {
-	amount, err := data.ToWei(req.GetAmount(), 18)
-	if err != nil {
-		err = errors.Wrapf(err, "invalid amount(=%v)", req.GetAmount())
+	if err = req.Validate(); err != nil {
+		err = errors.Wrap(err, "at Validate")
 		return
 	}
 
 	var (
+		amount, _       = data.ToWei(req.GetAmount(), 18)
 		contractAddress = common.HexToAddress(req.GetContractAddress())
 		account         = common.HexToAddress(req.GetAccount())
 		input, _        = c.stABI.Pack("redeem", []interface{}{account, amount, req.GetReason()}...)
@@ -265,6 +270,11 @@ func (c *BlockchainClient) BurnSecurityToken(ctx context.Context, req data.Redee
 }
 
 func (c *BlockchainClient) RegisterWalletComplianceService(ctx context.Context, req data.RegisterWalletRequest) (resp data.RegisterWalletResponse, err error) {
+	if err = req.Validate(); err != nil {
+		err = errors.Wrap(err, "at Validate")
+		return
+	}
+
 	var (
 		contractAddress = common.HexToAddress(req.GetContractAddress())
 		account         = common.HexToAddress(req.GetAccount())
@@ -285,12 +295,12 @@ func (c *BlockchainClient) RegisterWalletComplianceService(ctx context.Context, 
 }
 
 func (c *BlockchainClient) GrantRole(ctx context.Context, req data.GrantRoleRequest) (resp data.GrantRoleResponse, err error) {
-	hexRole, err := hex.DecodeString(req.GetRole())
-	if err != nil {
-		err = errors.Wrapf(err, "failed to decode role(=%s)", req.GetRole())
+	if err = req.Validate(); err != nil {
+		err = errors.Wrap(err, "at Validate")
 		return
 	}
 
+	hexRole, _ := hex.DecodeString(req.GetRole())
 	var role [32]byte
 	copy(role[:], hexRole)
 
@@ -314,6 +324,11 @@ func (c *BlockchainClient) GrantRole(ctx context.Context, req data.GrantRoleRequ
 }
 
 func (c *BlockchainClient) NameSecurityToken(ctx context.Context, req data.NameRequest) (resp data.NameResponse, err error) {
+	if err = req.Validate(); err != nil {
+		err = errors.Wrap(err, "at Validate")
+		return
+	}
+
 	var (
 		contractAddress = common.HexToAddress(req.GetContractAddress())
 		input, _        = c.stABI.Pack("name", []interface{}{}...)
@@ -335,6 +350,11 @@ func (c *BlockchainClient) NameSecurityToken(ctx context.Context, req data.NameR
 }
 
 func (c *BlockchainClient) SymbolSecurityToken(ctx context.Context, req data.SymbolRequest) (resp data.SymbolResponse, err error) {
+	if err = req.Validate(); err != nil {
+		err = errors.Wrap(err, "at Validate")
+		return
+	}
+
 	var (
 		contractAddress = common.HexToAddress(req.GetContractAddress())
 		input, _        = c.stABI.Pack("symbol", []interface{}{}...)
@@ -356,6 +376,11 @@ func (c *BlockchainClient) SymbolSecurityToken(ctx context.Context, req data.Sym
 }
 
 func (c *BlockchainClient) TotalSupplySecurityToken(ctx context.Context, req data.TotalSupplyRequest) (resp data.TotalSupplyResponse, err error) {
+	if err = req.Validate(); err != nil {
+		err = errors.Wrap(err, "at Validate")
+		return
+	}
+
 	var (
 		contractAddress = common.HexToAddress(req.GetContractAddress())
 		input, _        = c.stABI.Pack("totalSupply", []interface{}{}...)
@@ -377,6 +402,11 @@ func (c *BlockchainClient) TotalSupplySecurityToken(ctx context.Context, req dat
 }
 
 func (c *BlockchainClient) BalanceOfSecurityToken(ctx context.Context, req data.BalanceOfRequest) (resp data.BalanceOfResponse, err error) {
+	if err = req.Validate(); err != nil {
+		err = errors.Wrap(err, "at Validate")
+		return
+	}
+
 	var (
 		contractAddress = common.HexToAddress(req.GetContractAddress())
 		acount          = common.HexToAddress(req.GetAccount())
@@ -399,12 +429,12 @@ func (c *BlockchainClient) BalanceOfSecurityToken(ctx context.Context, req data.
 }
 
 func (c *BlockchainClient) HasRole(ctx context.Context, req data.HasRoleRequest) (resp data.HasRoleResponse, err error) {
-	hexRole, err := hex.DecodeString(req.GetRole())
-	if err != nil {
-		err = errors.Wrapf(err, "failed to decode role(=%s)", req.GetRole())
+	if err = req.Validate(); err != nil {
+		err = errors.Wrap(err, "at Validate")
 		return
 	}
 
+	hexRole, _ := hex.DecodeString(req.GetRole())
 	var role [32]byte
 	copy(role[:], hexRole)
 
@@ -455,9 +485,8 @@ func (c *BlockchainClient) DeployFactory(ctx context.Context, req data.DeployFCR
 }
 
 func (c *BlockchainClient) CreateContracts(ctx context.Context, req data.CreateContractsRequest) (resp data.CreateContractsResponse, err error) {
-	initalSupply, err := data.ToWei(req.GetInitialSupply(), 18)
-	if err != nil {
-		err = errors.Wrapf(err, "invalid inital supply(=%v)", req.GetInitialSupply())
+	if err = req.Validate(); err != nil {
+		err = errors.Wrap(err, "at Validate")
 		return
 	}
 
@@ -467,6 +496,7 @@ func (c *BlockchainClient) CreateContracts(ctx context.Context, req data.CreateC
 	}
 
 	var (
+		initalSupply, _ = data.ToWei(req.GetInitialSupply(), 18)
 		contractAddress = common.HexToAddress(req.GetContractAddress())
 		input, _        = c.fcABI.Pack("create", []interface{}{req.GetName(), req.GetSymbol(), initalSupply, grantees}...)
 	)
